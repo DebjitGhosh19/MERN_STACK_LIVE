@@ -1,17 +1,21 @@
 import Button from "./Button";
 
 const AddItems=()=>{
-  return    <div class="container text-center">
-  <div class="row">
-   <div class="col-5">
-     <input type="text"class="form-control"  placeholder="Enter Todo Here" />
-   </div>
-   <div class="col-3">
-     <input type="date" class="form-control"  />
-   </div>
-   <div class="col-2">
+  const addhandlr=()=>{
+    console.log("ADD");
     
-     <Button btnText='Add' btnType='success'/>
+  }
+  return    <div className="container ">
+  <div className="row custome-row">
+   <div className="col-5">
+     <input type="text"className="form-control"  placeholder="Enter Todo Here" />
+   </div>
+   <div className="col-3">
+     <input type="date" className="form-control"  />
+   </div>
+   <div className="col-2">
+    
+     <Button btnText='Add' btnType='success' handlar={addhandlr}/>
    </div>
  </div>
  </div>

@@ -1,15 +1,21 @@
 import Button from "./Button"; 
 const Item=({id,Todotext,Tododate})=>{
-  return  <div class="container text-center">
-  <div class="row">
-   <div class="col-5 text-truncate">
+
+  const DeleteHandler=()=>{
+    console.log("Delete")
+  }
+ 
+  return  <div className="container ">
+  <div className="row custome-row">
+   <div className="col-5 text-truncate">
    {Todotext}
    </div>
-   <div class="col-3">
+   <div className="col-3">
     {Tododate}
    </div>
-   <div class="col-2">
-   <Button  btnText='Delete'btnType='danger'/>
+   <div className="col-2">
+   <Button  btnText={'Delete'} btnType={'danger'} handlar={DeleteHandler}/>
+ 
    </div>
  </div>
  </div>
