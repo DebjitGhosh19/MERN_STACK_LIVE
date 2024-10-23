@@ -17,7 +17,9 @@ const RequestHandelar=(req,res)=>{
       <input type="submit">
     </form>
   </body>
-  </html>`)
+  </html>`);
+  res.statusCode=302;
+  res.setHeader('Location','/products');
   }
   else if(req.url==="/bye-product"){
     const arr=[];
@@ -34,12 +36,15 @@ const RequestHandelar=(req,res)=>{
       bodyobj[key]=value;
        
     }
-    fs.writeFileSync('bye.txt',JSON.stringify(bodyobj));
+    fs.writeFileSync('bye.txt',JSON.stringify(bodyobj),(err)=>{
+      res.statusCode=302;
+      res.setHeader('Location','/products');
+      res.end();
+    });
   })
   
   
-    res.statusCode=302;
-    res.setHeader('Location','/products');
+
   
   }
   else if(req.url==="/products"){
@@ -52,6 +57,7 @@ const RequestHandelar=(req,res)=>{
         <h1>Product Lists</h1>
       </body>
       </html>`)
+      res.end();
   }
   else{
     res.statusCode=404;
@@ -64,7 +70,8 @@ const RequestHandelar=(req,res)=>{
         <h1>Error 404</h1>
       </body>
       </html>`)
+      res.end();
   }
-  res.end();
+ 
   }
   module.exports=RequestHandelar;
