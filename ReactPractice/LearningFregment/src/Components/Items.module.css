@@ -1,0 +1,14 @@
+.bg{
+  background: #d94f4f;
+  margin: 5px;
+  list-style-type: none;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 5px;
+}
+.text{
+  color: white;
+}
+.buttons{
+  float: right;
+}
