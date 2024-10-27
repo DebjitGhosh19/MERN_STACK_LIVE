@@ -1,14 +1,15 @@
 import React from "react";
 import Items from "./Items";
 
-const Lists = ({foods}) => {
+const FoodItems = ({foods}) => {
   
   return (
     <>
       
           <ul className="list-group">
         {foods.map((item) => (
-          <Items key={item} item={item}/>
+          <Items key={item} item={item} handelar={()=>console.log(`${item} brought`)
+          }/>
         ))}
       </ul>
 
@@ -16,4 +17,4 @@ const Lists = ({foods}) => {
   );
 };
 
-export default Lists;
+export default FoodItems;
