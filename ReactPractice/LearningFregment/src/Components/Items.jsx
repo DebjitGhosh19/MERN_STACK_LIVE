@@ -9,7 +9,8 @@ const Items = ({item,handelar}) => {
     <li  className={`${css.bg} "list-group-item"`}>
           <span className={css["text"]}> {item}</span>
           <button className={` ${css.buttons} btn btn-success` }
-     onClick={handelar}
+     onClick={handelar} 
+     
           >Bye</button> 
     </li>
     </>

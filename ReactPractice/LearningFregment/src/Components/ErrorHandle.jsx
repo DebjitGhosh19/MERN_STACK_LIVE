@@ -3,7 +3,7 @@ import React from 'react'
 const ErrorHandle = ({foods}) => {
   return (
     <>
-    {foods.length==0&&<h1>I am Hungri.</h1> } 
+    {foods.length==0&&<h1>I am still Hungri !</h1> } 
     </>
   )
 }
