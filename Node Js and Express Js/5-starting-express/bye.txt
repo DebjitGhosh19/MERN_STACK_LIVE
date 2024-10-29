@@ -1,1 +1,1 @@
-{"Product":"jeans","price":"1399"}
+{"Product":"kg","price":"10"}
