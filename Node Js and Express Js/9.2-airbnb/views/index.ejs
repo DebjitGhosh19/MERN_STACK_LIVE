@@ -1,0 +1,12 @@
+<%- include('./partials/head')%>
+</head>
+<body class="bg-blue-50 min-h-screen">
+    <%- include('./partials/nav') %>
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-center pb-2 text-3xl font-bold text-blue-600">Welcome to Airbnb</h1>
+        <%homes.forEach(homes=>{%>
+        <li ><%=homes.houseName%></li>
+       <% }) %>
+    </main>
+</body>
+</html>
