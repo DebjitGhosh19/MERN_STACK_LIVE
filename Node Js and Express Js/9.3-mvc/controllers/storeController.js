@@ -1,6 +1,6 @@
-const {registerHome}=require('../models/Home')
+const Home=require('../models/Home')
 
 exports.getHome=(req,res,next)=>{
-  console.log(registerHome);
+let registerHome=Home.fatchAll();
   res.render('index',{homes:registerHome,pagetitle:"airbnb"});
 }
