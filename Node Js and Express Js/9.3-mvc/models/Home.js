@@ -1,7 +1,11 @@
 const registerHome=[];
 module.exports =class Home{
-  constructor(houseName){
+  constructor(houseName,price,location,rating,photoUrl){
     this.houseName=houseName;
+    this.price=price;
+    this.location=location;
+    this.rating=rating;
+    this.photoUrl=photoUrl; 
   }
 save(){
 registerHome.push(this);
