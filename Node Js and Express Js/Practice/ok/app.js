@@ -10,12 +10,13 @@ app.use(express.static(path.join(rootPath,"public")))
 
 const storeRouter=require('./Router/storeRouter');
 const {hostRouter}=require('./Router/hostRouter');
-
+app.set("view engine","ejs");
+app.set("views","views")
 app.use(storeRouter);
 app.use('/host',hostRouter);
 
 app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(rootPath,"views","404.html"));
+    res.render("404",{pageTitle:"Error"});
 });
 
 

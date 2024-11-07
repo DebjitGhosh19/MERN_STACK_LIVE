@@ -1,16 +1,12 @@
 const express=require('express');
 const hostRouter=express.Router();
-const path=require('path');
-const rootPath=require('../util/util')
 hostRouter.get('/add-home', (req, res,next) => {
-res.sendFile(path.join(rootPath,"views","add-home.html"))
+res.render("add-home",{pageTitle:"Add Home"});
 });
 const registerHomes=[];
 hostRouter.post('/add-home', (req, res,next) => {
   registerHomes.push(req.body)
-  
-  
-  res.sendFile(path.join(rootPath,"views","homeAdded.html"));
+  res.render("homeAdded",{pageTitle:"Home Added "});
 });
 exports.hostRouter=hostRouter;
 exports.registerHomes=registerHomes;
