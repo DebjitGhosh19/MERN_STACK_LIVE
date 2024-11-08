@@ -1,0 +1,1 @@
+[{"houseName":"first","price":"33","rating":"4.9","location":"Kolkata","photoUrl":"/images/airbnb-2.png"},{"houseName":"first","price":"33","rating":"4.9","location":"Kolkata","photoUrl":"/images/airbnb-3.png"},{"houseName":"kbksk","price":"33","rating":"4.9","location":"d","photoUrl":"/images/airbnb-1.png"}]
