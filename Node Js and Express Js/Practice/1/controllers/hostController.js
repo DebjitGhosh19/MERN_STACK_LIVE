@@ -7,10 +7,19 @@ exports.getAddHome=(req,res,next)=>{
     // registerHome.push(req.body);
    const {houseName,rent,location,rating,photoUrl}=req.body;
    
-   console.log(req.body);
+   
    
    const newHome = new Home(houseName,rent,location,rating,photoUrl);
-   newHome.save()
-   res.render("homeAdded",{pagetitle:" Home Hosted" })
+   
+   newHome.save(err=>{
+    if (err) {
+     res.redirect('/');
+      
+    } else {
+      res.render("homeAdded",{pagetitle:" Home Hosted" })
+    }
+    
+   })
+   
   }
  

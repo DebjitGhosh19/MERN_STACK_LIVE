@@ -1,6 +1,7 @@
 const Home = require("../models/Home");
 exports.getHome=(req,res,next)=>{
-  let registerHome=Home.fetchAll()
+  Home.fetchAll(registerHome =>{
+    res.render('index',{homes:registerHome,pagetitle:"airbnb"})
+  })
 
-  res.render('index',{homes:registerHome,pagetitle:"airbnb"})
 }
