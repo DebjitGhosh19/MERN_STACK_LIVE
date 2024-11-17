@@ -3,7 +3,52 @@
 <body class="bg-gradient-to-br from-sky-100 to-blue-100 min-h-screen">
   <%- include('../partials/nav') %>
   <main class="container mx-auto px-4 py-12">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-5xl font-bold text-sky-800 text-center mb-4">
-      Here are you home detail
+    <div class="max-w-[800px] mx-auto">
+      <h1 class="text-3xl font-bold text-sky-800 text-center mb-4">
+        Here are your home details
       </h1>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 h-[500px] flex flex-col">
+        <!-- Home Image with Overlay -->
+        <div class="relative h-1/2">
+          <img src="<%= home.photoUrl %>" alt="<%= home.houseName %>" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-between p-4 text-white">
+            <div class="flex items-center">
+              <span class="text-yellow-400 text-xl mr-1">★</span>
+              <span class="text-lg"><%= home.rating %></span>
+            </div>
+            <div>
+              <div class="flex items-center mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+                <span class="text-lg"><%= home.location %></span>
+              </div>
+              <div class="text-xl font-bold">
+                Rs-<%= home.rent %> 
+                <span class="text-sm font-normal">per night</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Details -->
+        <div class="text-gray-800 flex-grow overflow-y-auto p-4">
+          <h2 class="text-2xl font-semibold mb-3"><%= home.houseName %></h2>
+
+          <!-- Features Section -->
+          <div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Features</h3>
+            <ul class="list-disc pl-4 space-y-1 text-sm text-gray-700">
+              <li><strong>Spacious Rooms:</strong> Enjoy large, airy rooms with plenty of natural light.</li>
+              <li><strong>Fully Furnished:</strong> Includes all essential furniture, appliances, and modern amenities.</li>
+              <li><strong>Prime Location:</strong> Close to major attractions, shopping centers, and public transport.</li>
+              <li><strong>Free Wi-Fi:</strong> High-speed internet connection included for all guests.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
