@@ -13,9 +13,14 @@ this.rating=rating;
 this.photoUrl=photoUrl;
   }
   save(callback){
-   this.id=Math.random().toString();
     Home.fetchAll((registerHome)=>{
-      registerHome.push(this);
+      if (this.id) {//edit case
+        registerHome=registerHome.map(home=>home.id!==this.id?home:this)
+      }
+      else{ //new case
+        this.id=Math.random().toString();
+        registerHome.push(this);
+      }
       fs.writeFile(homeFilePath,JSON.stringify(registerHome),callback)
     })
    
