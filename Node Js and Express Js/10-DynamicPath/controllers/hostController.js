@@ -48,21 +48,30 @@ exports.postEditHome=(req,res,next)=>{
   newHome.id=id;
   newHome.save(err=>{
     if (err) {
-    console.log("Error while updating home",err);
-    
-      
+    console.log("Error while updating home",err);      
     } else {
       res.redirect("host-homes")
     }
     
    })
 }
-
-
-
+exports.postDeleteHome=(req,res,next)=>{
+  const homeId=req.params.homeId;
+  console.log("came to delete",homeId);
+  
+  // res.redirect("/host/host-homes");
+  Home.deleteById(homeId,error=>{
+    if (error) {
+      console.log("Error occure while deleteing home",error);      
+    }
+    res.redirect("/host/host-homes");
+  
+  }) 
+}
 
  exports.getHostHome=(req,res,next)=>{
   Home.fetchAll(registerHome =>{
     res.render('host/host-homes',{homes:registerHome,pagetitle:"airbnb"})
   })
  }
+

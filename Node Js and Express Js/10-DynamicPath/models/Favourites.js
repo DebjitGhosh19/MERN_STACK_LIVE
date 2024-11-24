@@ -26,5 +26,11 @@ module.exports=class Favourite {
      })
     
    }
+   static deleteById(removeHomeId,callback){
+    Favourite.fetchAll(homesIds=>{
+    const newHomeIds=homesIds.filter(homeId=>removeHomeId!==homeId);
+    fs.writeFile(favourieFilePath,JSON.stringify(newHomeIds),callback)
+  })
+}
   
 }

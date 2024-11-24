@@ -2,6 +2,7 @@ const path=require('path');
 const fs=require('fs');
 const rootDir=require('../utils/utilsPath');
 const { error } = require('console');
+const Favourite = require('./Favourites');
 const homeFilePath=path.join(rootDir,'Data','home.json');
 
 module.exports=class Home {
@@ -43,4 +44,17 @@ this.photoUrl=photoUrl;
      callback(home)
     })
   }
+
+  static deleteById(homeId,callback){
+    Home.fetchAll(homes=>{
+    const newHomes=homes.filter(home=>home.id!==homeId);
+    fs.writeFile(homeFilePath,JSON.stringify(newHomes),error=>{
+      if (error) {
+        callback(error);
+        return;
+      }
+      Favourite.deleteById(homeId,callback)
+    })
+  })
+}
 }
