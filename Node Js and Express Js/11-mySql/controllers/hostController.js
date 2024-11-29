@@ -27,33 +27,39 @@ if (!editing) {
     }
   exports.getPostHome=(req,res,next)=>{
     // registerHome.push(req.body);
-   const {houseName,rent,location,rating,photoUrl}=req.body;
-   const newHome = new Home(houseName,rent,location,rating,photoUrl);
+   const {houseName,rent,location,rating,photoUrl,description}=req.body;
+   const newHome = new Home(houseName,rent,location,rating,photoUrl,description);
    
-   newHome.save(err=>{
-    if (err) {
-     res.redirect('/');
+  //  newHome.save(err=>{
+  //   if (err) {
+  //    res.redirect('/');
       
-    } else {
-      res.render("host/homeAdded",{pagetitle:" Home Hosted" })
-    }
+  //   } else {
+  //     res.render("host/homeAdded",{pagetitle:" Home Hosted" })
+  //   }
     
-   })
+  //  })
+  newHome.save().then(()=>{
+    res.render("host/homeAdded",{pagetitle:" Home Hosted" })
+  })
    
   }
 
 exports.postEditHome=(req,res,next)=>{
-  const {id,houseName,rent,location,rating,photoUrl}=req.body;
-  const newHome = new Home(houseName,rent,location,rating,photoUrl);
+  const {id,houseName,rent,location,rating,photoUrl,description}=req.body;
+  const newHome = new Home(houseName,rent,location,rating,photoUrl,description);
   newHome.id=id;
-  newHome.save(err=>{
-    if (err) {
-    console.log("Error while updating home",err);      
-    } else {
-      res.redirect("host-homes")
-    }
+  // newHome.save(err=>{
+  //   if (err) {
+  //   console.log("Error while updating home",err);      
+  //   } else {
+  //     res.redirect("host-homes")
+  //   }
     
-   })
+  //  })
+  newHome.save().then(()=>{
+    res.redirect("host-homes")
+  })
 }
 exports.postDeleteHome=(req,res,next)=>{
   const homeId=req.params.homeId;
@@ -70,7 +76,7 @@ exports.postDeleteHome=(req,res,next)=>{
 }
 
  exports.getHostHome=(req,res,next)=>{
-  Home.fetchAll(registerHome =>{
+  Home.fetchAll().then(([registerHome]) =>{
     res.render('host/host-homes',{homes:registerHome,pagetitle:"airbnb"})
   })
  }

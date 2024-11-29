@@ -1,19 +1,19 @@
 const Home = require("../models/Home");
 const Favourite =require("../models/Favourites");
 exports.getIndex=(req,res,next)=>{
-  Home.fetchAll(registerHome =>{
+  Home.fetchAll().then(([registerHome]) =>{
     res.render('store/index',{homes:registerHome,pagetitle:"airbnb"})
   })
 
 }
 exports.getHome=(req,res,next)=>{
-  Home.fetchAll(registerHome =>{
+  Home.fetchAll().then(([registerHome]) =>{
     res.render('store/homes',{homes:registerHome,pagetitle:"airbnb"})
   })
 }
 exports.getFavourites=(req,res,next)=>{
   Favourite.fetchAll(favouriteIds =>{
-  Home.fetchAll(registerHome =>{
+  Home.fetchAll().then(([registerHome]) =>{
     const favouriteHomes=registerHome.filter(home=> favouriteIds.includes(home.id) )
     res.render('store/favourites',{homes:favouriteHomes,pagetitle:"Favourites"})
   })
