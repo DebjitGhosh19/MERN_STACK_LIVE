@@ -43,7 +43,8 @@ exports.postRemoveFavourite=(req,res,next)=>{
 }
 exports.getHomeDetails=(req,res,next)=>{
   const homeId=req.params.homeId;
-  Home.findById(homeId,home=>{
+  Home.findById(homeId).then(([homes])=>{
+    const home=homes[0];
     if(!home){
       console.log("Homes not found");
      return res.redirect('/homes')

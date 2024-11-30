@@ -11,7 +11,8 @@ if (!editing) {
   console.log("Editing flag not set properly");
   return res.redirect('/host/host-homes')
 }
-  Home.findById(homeId,home=>{
+  Home.findById(homeId).then(([homes])=>{
+    const home=homes[0];
     if (!home) {
       console.log('Home not found for edinting');
       return res.redirect('/host/host-homes')
@@ -39,7 +40,7 @@ if (!editing) {
   //   }
     
   //  })
-  newHome.save().then(()=>{
+  newHome.save().then(([rows])=>{
     res.render("host/homeAdded",{pagetitle:" Home Hosted" })
   })
    
@@ -57,7 +58,7 @@ exports.postEditHome=(req,res,next)=>{
   //   }
     
   //  })
-  newHome.save().then(()=>{
+  newHome.save().then(([rows])=>{
     res.redirect("host-homes")
   })
 }
@@ -66,10 +67,7 @@ exports.postDeleteHome=(req,res,next)=>{
   console.log("came to delete",homeId);
   
   // res.redirect("/host/host-homes");
-  Home.deleteById(homeId,error=>{
-    if (error) {
-      console.log("Error occure while deleteing home",error);      
-    }
+  Home.deleteById(homeId).then(()=>{
     res.redirect("/host/host-homes");
   
   }) 

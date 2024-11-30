@@ -18,11 +18,11 @@ this.description=description;
  
   }
 
-  static findById(homeId,callback){
-   
+  static findById(homeId){
+  return airbnbDb.execute('SELECT * FROM homes WHERE id=?',[homeId]);
   }
 
-  static deleteById(homeId,callback){
-    
+  static deleteById(homeId){
+    return airbnbDb.execute('DELETE FROM homes WHERE id=?',[homeId]);
 }
 }
