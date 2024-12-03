@@ -1,5 +1,6 @@
+const { ObjectId } = require('mongodb');
 const { getDb } = require('../utils/Database-utils');
-const Favourite = require('./Favourites');
+
 
 
 module.exports=class Home {
@@ -18,12 +19,22 @@ this.description=description;
     })
   }
  static fetchAll(){
-  
+  const db = getDb();
+  return db.collection("homes").find().toArray();
  
   }
 
   static findById(homeId){
-
+    const db = getDb();
+    return db.collection("homes").find({_id: new ObjectId(String( homeId))}).next()
+    .then(home=>{
+      console.log(home);
+      return home;
+    })
+    .catch(error=>{
+      console.log("Error came while doing findById",error);
+      
+    })
   }
 
   static deleteById(homeId){

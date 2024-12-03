@@ -11,8 +11,8 @@ if (!editing) {
   console.log("Editing flag not set properly");
   return res.redirect('/host/host-homes')
 }
-  Home.findById(homeId).then(([homes])=>{
-    const home=homes[0];
+  Home.findById(homeId).then((home)=>{
+ 
     if (!home) {
       console.log('Home not found for edinting');
       return res.redirect('/host/host-homes')
@@ -41,7 +41,7 @@ if (!editing) {
     
   //  })
   newHome.save().then((rows)=>{
-    res.render("host/homeAdded",{pagetitle:" Home Hosted" })
+    res.render("host/host-homes",{pagetitle:" Home Hosted" })
   })
    
   }
@@ -74,7 +74,7 @@ exports.postDeleteHome=(req,res,next)=>{
 }
 
  exports.getHostHome=(req,res,next)=>{
-  Home.fetchAll().then(([registerHome]) =>{
+  Home.fetchAll().then((registerHome) =>{
     res.render('host/host-homes',{homes:registerHome,pagetitle:"airbnb"})
   })
  }
