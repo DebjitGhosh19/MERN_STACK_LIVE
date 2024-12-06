@@ -48,18 +48,14 @@ if (!editing) {
 
 exports.postEditHome=(req,res,next)=>{
   const {id,houseName,rent,location,rating,photoUrl,description}=req.body;
-  const newHome = new Home(houseName,rent,location,rating,photoUrl,description);
-  newHome.id=id;
-  // newHome.save(err=>{
-  //   if (err) {
-  //   console.log("Error while updating home",err);      
-  //   } else {
-  //     res.redirect("host-homes")
-  //   }
-    
-  //  })
-  newHome.save().then(([rows])=>{
-    res.redirect("host-homes")
+  const newHome = new Home(houseName,rent,location,rating,photoUrl,description,id);
+  
+  newHome.save().then(error=>{
+    if (error) {
+      console.log("Error while updating home",error);
+      
+    }
+    res.redirect("/host/host-homes")
   })
 }
 exports.postDeleteHome=(req,res,next)=>{
