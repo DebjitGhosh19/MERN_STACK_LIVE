@@ -5,7 +5,7 @@ let _db;
 const mongoConnect=(callback)=>{
 MongoClient.connect(url)
 .then((client)=>{
-  console.log("connected to mongodb",client);
+  console.log("connected to mongodb");
   _db=client.db("airbnb");
   callback();
 })
