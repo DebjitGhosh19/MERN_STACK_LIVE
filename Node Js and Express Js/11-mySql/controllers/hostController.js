@@ -50,16 +50,12 @@ exports.postEditHome=(req,res,next)=>{
   const {id,houseName,rent,location,rating,photoUrl,description}=req.body;
   const newHome = new Home(houseName,rent,location,rating,photoUrl,description);
   newHome.id=id;
-  // newHome.save(err=>{
-  //   if (err) {
-  //   console.log("Error while updating home",err);      
-  //   } else {
-  //     res.redirect("host-homes")
-  //   }
-    
-  //  })
-  newHome.save().then(([rows])=>{
-    res.redirect("host-homes")
+  newHome.save().then(()=>{
+    res.redirect("/host/host-homes")
+  })
+  .catch(err=>{
+    console.log('Error occure in post Edit home');
+    res.redirect("/host/host-homes")
   })
 }
 exports.postDeleteHome=(req,res,next)=>{

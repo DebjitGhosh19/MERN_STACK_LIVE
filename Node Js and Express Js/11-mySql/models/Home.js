@@ -10,9 +10,21 @@ this.rating=rating;
 this.photoUrl=photoUrl;
 this.description=description;
   }
-  save(){
-   return airbnbDb.execute('INSERT INTO homes(houseName,rent,location,rating,photoUrl,description) VALUES(?,?,?,?,?,?)', [this.houseName,this.rent,this.location,this.rating,this.photoUrl,this.description])
-  }
+  save() {
+    if (this.id) {
+        return airbnbDb.execute(
+            `UPDATE homes 
+             SET houseName = ?, rent = ?, location = ?, rating = ?, photoUrl = ?, description = ? 
+             WHERE id = ?`, 
+            [this.houseName, this.rent, this.location, this.rating, this.photoUrl, this.description, this.id]
+        );
+    }
+    return airbnbDb.execute(
+        'INSERT INTO homes (houseName, rent, location, rating, photoUrl, description) VALUES (?, ?, ?, ?, ?, ?)', 
+        [this.houseName, this.rent, this.location, this.rating, this.photoUrl, this.description]
+    );
+}
+
  static fetchAll(){
   return airbnbDb.execute('SELECT * FROM homes');
  
