@@ -39,13 +39,14 @@ exports.postFavourites = (req, res, next) => {
 };
 exports.postRemoveFavourite = (req, res, next) => {
   const homeId = req.params.homeId;
-  Favourite.deleteById(homeId, (error) => {
-    if (error) {
-      console.log("Error while remove from favourites", error);
-    }
+  Favourite.deleteById(homeId).then(()=>{
     res.redirect("/favourites");
-  });
-};
+  }).catch((error)=>{
+    console.log("Error while remove from favourites", error);
+    res.redirect("/favourites");
+  })
+      
+    }
 exports.getHomeDetails = (req, res, next) => {
   const homeId = req.params.homeId;
   Home.findById(homeId).then((home) => {
