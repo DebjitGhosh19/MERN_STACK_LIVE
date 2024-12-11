@@ -11,11 +11,10 @@ exports.getHome = (req, res, next) => {
   });
 };
 exports.getFavourites = (req, res, next) => {
-  Favourite.fetchAll().then((favouriteIds) => {
+  Favourite.find().then((favouriteIds) => {
     Home.find().then((registerHome) => {
-      favouriteIds = favouriteIds.map((favId) => favId.homeId);
-      console.log(favouriteIds, registerHome);
-
+      favouriteIds = favouriteIds.map((favId) => favId.homeId.toString());
+     
       const favouriteHomes = registerHome.filter((home) =>
         favouriteIds.includes(home._id.toString())
       );
@@ -27,9 +26,8 @@ exports.getFavourites = (req, res, next) => {
   });
 };
 exports.postFavourites = (req, res, next) => {
-  // console.log('Call by favourite',req.body);
   const homeId = req.body.id;
-  const fav = new Favourite(homeId);
+  const fav = new Favourite({homeId});
   fav
     .save()
     .then(() => {
@@ -42,7 +40,7 @@ exports.postFavourites = (req, res, next) => {
 };
 exports.postRemoveFavourite = (req, res, next) => {
   const homeId = req.params.homeId;
-  Favourite.deleteById(homeId)
+  Favourite.findOneAndDelete({homeId})
     .then(() => {
       res.redirect("/favourites");
     })
