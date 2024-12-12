@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-  const FavouriteSchema=mongoose.Schema({
+  const FavouriteSchema=new mongoose.Schema({
  homeId:{
   type:mongoose.Schema.Types.ObjectId,
   ref:'Home',
