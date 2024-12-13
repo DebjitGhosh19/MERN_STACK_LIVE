@@ -11,20 +11,15 @@ exports.getHome = (req, res, next) => {
   });
 };
 exports.getFavourites = (req, res, next) => {
-  Favourite.find().then((favouriteIds) => {
-    Home.find().then((registerHome) => {
-      favouriteIds = favouriteIds.map((favId) => favId.homeId.toString());
-     
-      const favouriteHomes = registerHome.filter((home) =>
-        favouriteIds.includes(home._id.toString())
-      );
+  Favourite.find().populate("homeId").then((favIdHomes) => {
+    const favouriteHomes = favIdHomes.map((favIdHome) =>
+        favIdHome.homeId) ;
       res.render("store/favourites", {
         homes: favouriteHomes,
         pagetitle: "Favourites",
       });
     });
-  });
-};
+  }
 exports.postFavourites = (req, res, next) => {
   const homeId = req.body.id;
   const fav = new Favourite({homeId});

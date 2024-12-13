@@ -27,6 +27,20 @@ exports.getEditHome = (req, res, next) => {
     });
   });
 };
+// exports.getPostHome = (req, res, next) => {
+//   const { houseName, rent, location, rating, photoUrl, description } = req.body;
+//   const newHome = new Home({
+//     houseName,
+//     rent,
+//     location,
+//     rating,
+//     photoUrl,
+//     description,
+//   });
+//   newHome.save().then(() => {
+//     res.render("host/host-homes", { pagetitle: " Home Hosted" });
+//   });
+// };
 exports.getPostHome = (req, res, next) => {
   const { houseName, rent, location, rating, photoUrl, description } = req.body;
   const newHome = new Home({
@@ -38,9 +52,15 @@ exports.getPostHome = (req, res, next) => {
     description,
   });
   newHome.save().then(() => {
-    res.render("host/host-homes", { pagetitle: " Home Hosted" });
+    Home.find().then((registerHome) => {
+      res.render("host/host-homes", {
+        homes: registerHome,
+        pagetitle: "Home Hosted",
+      });
+    });
   });
 };
+
 
 exports.postEditHome = (req, res, next) => {
   const { id, houseName, rent, location, rating, photoUrl, description } =
