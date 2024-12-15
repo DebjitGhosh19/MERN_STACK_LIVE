@@ -1,0 +1,13 @@
+<header class="bg-white shadow-md py-4 px-6">
+  <nav>
+    <a href="/" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">airbnb</a>
+      <a href="/homes" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Homes</a>
+      <% if(isLoggedIn){ %>
+       <a href="/favourites" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Favourites</a>
+       <a href="/host/host-homes" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Host-home</a>
+       <a href="/host/add-home" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Add Home</a>
+     <% }%>
+      <a href="/login" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Login</a>
+  </nav>
+  
+</header>
