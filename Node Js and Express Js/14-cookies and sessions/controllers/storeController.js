@@ -2,27 +2,37 @@ const Home = require("../models/Home");
 const Favourite = require("../models/Favourites");
 exports.getIndex = (req, res, next) => {
   Home.find().then((registerHome) => {
-    res.render("store/index", { homes: registerHome, pagetitle: "airbnb",isLoggedIn:req.isLoggedIn });
+    res.render("store/index", {
+      homes: registerHome,
+      pagetitle: "airbnb",
+      isLoggedIn: req.session.isLoggedIn,
+    });
   });
 };
 exports.getHome = (req, res, next) => {
   Home.find().then((registerHome) => {
-    res.render("store/homes", { homes: registerHome, pagetitle: "airbnb",isLoggedIn:req.isLoggedIn });
+    res.render("store/homes", {
+      homes: registerHome,
+      pagetitle: "airbnb",
+      isLoggedIn: req.session.isLoggedIn,
+    });
   });
 };
 exports.getFavourites = (req, res, next) => {
-  Favourite.find().populate("homeId").then((favIdHomes) => {
-    const favouriteHomes = favIdHomes.map((favIdHome) =>
-        favIdHome.homeId) ;
+  Favourite.find()
+    .populate("homeId")
+    .then((favIdHomes) => {
+      const favouriteHomes = favIdHomes.map((favIdHome) => favIdHome.homeId);
       res.render("store/favourites", {
         homes: favouriteHomes,
-        pagetitle: "Favourites",isLoggedIn:req.isLoggedIn
+        pagetitle: "Favourites",
+        isLoggedIn: req.session.isLoggedIn,
       });
     });
-  }
+};
 exports.postFavourites = (req, res, next) => {
   const homeId = req.body.id;
-  const fav = new Favourite({homeId});
+  const fav = new Favourite({ homeId });
   fav
     .save()
     .then(() => {
@@ -35,7 +45,7 @@ exports.postFavourites = (req, res, next) => {
 };
 exports.postRemoveFavourite = (req, res, next) => {
   const homeId = req.params.homeId;
-  Favourite.findOneAndDelete({homeId})
+  Favourite.findOneAndDelete({ homeId })
     .then(() => {
       res.redirect("/favourites");
     })
@@ -51,6 +61,10 @@ exports.getHomeDetails = (req, res, next) => {
       console.log("Homes not found");
       return res.redirect("/homes");
     }
-    res.render("store/homeDetail", { home: home, pagetitle: "airbnb",isLoggedIn:req.isLoggedIn });
+    res.render("store/homeDetail", {
+      home: home,
+      pagetitle: "airbnb",
+      isLoggedIn: req.session.isLoggedIn,
+    });
   });
 };

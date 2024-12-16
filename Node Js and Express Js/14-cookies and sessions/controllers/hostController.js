@@ -3,7 +3,8 @@ const Home = require("../models/Home");
 exports.getAddHome = (req, res, next) => {
   res.render("host/editHome", {
     editing: false,
-    pagetitle: "Host add your home",isLoggedIn:req.isLoggedIn
+    pagetitle: "Host add your home",
+    isLoggedIn: req.session.isLoggedIn,
   });
 };
 
@@ -23,7 +24,8 @@ exports.getEditHome = (req, res, next) => {
     res.render("host/editHome", {
       home: home,
       editing: editing,
-      pagetitle: "Edit your home",isLoggedIn:req.isLoggedIn
+      pagetitle: "Edit your home",
+      isLoggedIn: req.session.isLoggedIn,
     });
   });
 };
@@ -55,32 +57,34 @@ exports.getPostHome = (req, res, next) => {
     Home.find().then((registerHome) => {
       res.render("host/host-homes", {
         homes: registerHome,
-        pagetitle: "Home Hosted",isLoggedIn:req.isLoggedIn
+        pagetitle: "Home Hosted",
+        isLoggedIn: req.session.isLoggedIn,
       });
     });
   });
 };
 
-
 exports.postEditHome = (req, res, next) => {
   const { id, houseName, rent, location, rating, photoUrl, description } =
     req.body;
-    Home.findById(id).then((existingHome)=>{
+  Home.findById(id)
+    .then((existingHome) => {
       if (!existingHome) {
-        console.log('Home not found for editing');
-        
-        return res.redirect('/host/host-homes')
+        console.log("Home not found for editing");
+
+        return res.redirect("/host/host-homes");
       }
-      existingHome.houseName=houseName;
-      existingHome.rent=rent;
-      existingHome.location=location;
-      existingHome.rating=rating;
-      existingHome.photoUrl=photoUrl;
-      existingHome.description=description
+      existingHome.houseName = houseName;
+      existingHome.rent = rent;
+      existingHome.location = location;
+      existingHome.rating = rating;
+      existingHome.photoUrl = photoUrl;
+      existingHome.description = description;
       return existingHome.save();
-    }).finally(()=>{
-      return res.redirect('/host/host-homes')
     })
+    .finally(() => {
+      return res.redirect("/host/host-homes");
+    });
 };
 exports.postDeleteHome = (req, res, next) => {
   const homeId = req.params.homeId;
@@ -94,6 +98,10 @@ exports.postDeleteHome = (req, res, next) => {
 
 exports.getHostHome = (req, res, next) => {
   Home.find().then((registerHome) => {
-    res.render("host/host-homes", { homes: registerHome, pagetitle: "airbnb" ,isLoggedIn:req.isLoggedIn});
+    res.render("host/host-homes", {
+      homes: registerHome,
+      pagetitle: "airbnb",
+      isLoggedIn: req.session.isLoggedIn,
+    });
   });
 };

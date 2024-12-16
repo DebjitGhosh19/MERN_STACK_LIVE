@@ -1,13 +1,19 @@
-import { useState } from 'react'
+
 import './App.css'
+import Hello from './Hello.jsx'
+import Kgbutton from './KgButton.jsx'
+import Random from './Random.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <div>
-      Welcom
+     <h1>Welcome</h1> 
+     <Kgbutton/>
+     <Hello/>
+     <Random/>
+     <Random/>
+     <Random/>
       </div>
      
     </>
