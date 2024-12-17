@@ -1,0 +1,74 @@
+<%- include('../partials/head')%>
+</head>
+<body class="bg-blue-50 min-h-screen">
+    <%- include('../partials/nav') %> 
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-center pb-2 text-3xl font-bold text-blue-600">signup here</h1>
+    <form action='/signup' method="post" class="max-w-md mx-auto space-y-6">
+      <div class="space-y-2">
+        <input 
+          type="text" 
+          name="firstName" 
+          placeholder="Enter Your First Name" 
+          class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          required
+        >
+        <input 
+        type="text" 
+        name="lastName" 
+        placeholder="Enter Your Last Name" 
+        class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        required
+      >
+        <input 
+        type="email" 
+        name="Email" 
+        placeholder="Enter your Email" 
+        class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        required
+      >
+        <input 
+        type="password" 
+        name="Password" 
+        placeholder="Enter your Password" 
+        class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        required
+      >
+      <input 
+        type="password" 
+        name="confirm_password" 
+        placeholder="Confirm  your Password" 
+        class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        required
+      >
+      <div class="space-y-2">
+        <label class="block text-gray-700">Select User Type:</label>
+        <select name="userType" class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" required>
+          <option value="">Choose your role</option>
+          <option value="host">Host</option>
+          <option value="guest">Guest</option>
+        </select>
+      </div>
+      <div class="flex items-center space-x-2">
+        <input 
+          type="checkbox" 
+          name="terms" 
+          id="terms" 
+          class="rounded border-blue-200 text-blue-500 focus:ring-blue-200"
+          required
+        >
+        <label for="terms" class="text-sm text-gray-700">
+          I agree to the Terms and Conditions
+        </label>
+      </div>
+      <button 
+      type="submit" 
+      class="w-full bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-200"
+    >Signup
+    </button>
+      </div>
+      
+    </form>
+  </main>
+</body>
+</html>

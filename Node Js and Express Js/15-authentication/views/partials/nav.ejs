@@ -1,0 +1,25 @@
+<header class="bg-white shadow-md py-4 px-6">
+  <nav class="flex justify-between items-center">
+    <div class="flex gap-4">
+      <a href="/" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">airbnb</a>
+    
+      <% if(isLoggedIn){ %>
+        <a href="/homes" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Homes</a>
+        <a href="/favourites" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Favourites</a>
+        <a href="/host/host-homes" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Host-home</a>
+        <a href="/host/add-home" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Add Home</a>
+      <% }%>
+    </div>
+    
+    <div>
+      <% if(!isLoggedIn){%>
+        <a href="/signup" class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors duration-200">signup</a>
+        <a href="/login" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Login</a>
+      <%}else{%>
+        <form action="/logout" method="post" class="inline-block">
+          <input type="submit" value="Logout" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200">
+        </form>
+      <%}%>
+    </div>
+  </nav>
+</header>
