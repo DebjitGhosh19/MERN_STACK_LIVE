@@ -6,44 +6,53 @@
     <h1 class="text-center pb-2 text-3xl font-bold text-blue-600">signup here</h1>
     <form action='/signup' method="post" class="max-w-md mx-auto space-y-6">
       <div class="space-y-2">
+       <% if(typeof errorMessages !=='undefined' && errorMessages && errorMessages.length > 0){ %>
+        <div class="bg-red-50 border border-red-400 rounded-lg p-4 mb-4">
+          <ul class="list-disc list-inside space-y-1 text-red-600">
+            <% errorMessages.forEach(errorMessage => { %>
+              <li class="text-sm"><%=errorMessage%></li>
+            <% }) %>
+          </ul>
+        </div>
+       <% } %>
         <input 
           type="text" 
           name="firstName" 
           placeholder="Enter Your First Name" 
           class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-          required
+     
         >
         <input 
         type="text" 
         name="lastName" 
         placeholder="Enter Your Last Name" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        required
+        
       >
         <input 
         type="email" 
         name="Email" 
         placeholder="Enter your Email" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        required
+     
       >
         <input 
         type="password" 
         name="Password" 
         placeholder="Enter your Password" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        required
+       
       >
       <input 
         type="password" 
         name="confirm_password" 
         placeholder="Confirm  your Password" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        required
+       
       >
       <div class="space-y-2">
         <label class="block text-gray-700">Select User Type:</label>
-        <select name="userType" class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" required>
+        <select name="userType" class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" >
           <option value="">Choose your role</option>
           <option value="host">Host</option>
           <option value="guest">Guest</option>
@@ -55,7 +64,7 @@
           name="terms" 
           id="terms" 
           class="rounded border-blue-200 text-blue-500 focus:ring-blue-200"
-          required
+          
         >
         <label for="terms" class="text-sm text-gray-700">
           I agree to the Terms and Conditions
