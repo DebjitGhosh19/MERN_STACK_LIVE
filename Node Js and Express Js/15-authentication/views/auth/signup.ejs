@@ -6,15 +6,7 @@
     <h1 class="text-center pb-2 text-3xl font-bold text-blue-600">signup here</h1>
     <form action='/signup' method="post" class="max-w-md mx-auto space-y-6">
       <div class="space-y-2">
-       <% if(typeof errorMessages !=='undefined' && errorMessages && errorMessages.length > 0){ %>
-        <div class="bg-red-50 border border-red-400 rounded-lg p-4 mb-4">
-          <ul class="list-disc list-inside space-y-1 text-red-600">
-            <% errorMessages.forEach(errorMessage => { %>
-              <li class="text-sm"><%=errorMessage%></li>
-            <% }) %>
-          </ul>
-        </div>
-       <% } %>
+        <%- include('../partials/error-messages')%>
         <input 
           type="text" 
           name="firstName" 

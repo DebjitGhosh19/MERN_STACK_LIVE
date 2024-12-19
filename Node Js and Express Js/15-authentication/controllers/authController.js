@@ -1,12 +1,35 @@
 const {check, validationResult}=require('express-validator');
 const User = require('../models/User');
-
+const bcrypt=require('bcryptjs')
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", { pagetitle: "Login", isLoggedIn: false });
 };
 exports.postLogin = (req, res, next) => {
-  req.session.isLoggedIn = true;
-  res.redirect("/");
+  const {Email,Password}=req.body;
+  console.log(Email,Password);
+
+  User.findOne({Email}).then(user=>{
+    console.log(user);
+    if(!user){
+     return res.render("auth/login", {
+        pagetitle: "Login", 
+        isLoggedIn: false,
+        errorMessages:["User not found."]
+        });
+    }
+    res.redirect("/");
+    // req.session.isLoggedIn = true;
+    }
+
+  ).catch(err=>{
+    res.render("auth/login", {
+       pagetitle: "Login", 
+       isLoggedIn: false,
+       errorMessages:[err.message]
+       });
+  })
+
+
 };
 exports.postLogout = (req, res, next) => {
   req.session.destroy();
@@ -81,13 +104,19 @@ if(!errors.isEmpty()){
      oldInput:req.body,
     });
 }
+
+
   const {firstName,
   lastName,
   Email,
   Password,
   userType}=req.body;
+  
+bcrypt.hash(Password,12).then(hashedPassword=>{
+  console.log(hashedPassword);
+  
   const user=new User({
-    firstName,lastName,Email,Password,userType
+    firstName,lastName,Email,Password:hashedPassword,userType
   });
   user.save().then(result=>{
     console.log(result);
@@ -100,7 +129,7 @@ if(!errors.isEmpty()){
       oldInput:req.body,
      });
   })
- 
-
+})
+  
   },
 ]

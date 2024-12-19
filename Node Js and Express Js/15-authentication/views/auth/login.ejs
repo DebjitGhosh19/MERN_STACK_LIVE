@@ -5,6 +5,7 @@
   <main class="container mx-auto px-4 py-8">
     <h1 class="text-center pb-2 text-3xl font-bold text-blue-600">Login here</h1>
     <form action='/login' method="post" class="max-w-md mx-auto space-y-6">
+      <%- include('../partials/error-messages')%>
       <div class="space-y-2">
         <input 
           type="email" 
