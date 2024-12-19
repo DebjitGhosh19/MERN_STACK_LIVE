@@ -18,6 +18,7 @@
         <input 
           type="text" 
           name="firstName" 
+          value="<%= typeof oldInput !== 'undefined' ? oldInput.firstName : '' %>"
           placeholder="Enter Your First Name" 
           class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
      
@@ -25,6 +26,7 @@
         <input 
         type="text" 
         name="lastName" 
+        value="<%= typeof oldInput !== 'undefined' ? oldInput.lastName :'' %>"
         placeholder="Enter Your Last Name" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
         
@@ -32,6 +34,7 @@
         <input 
         type="email" 
         name="Email" 
+        value="<%= typeof oldInput !== 'undefined' ? oldInput.Email :'' %>"
         placeholder="Enter your Email" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
      
@@ -39,6 +42,7 @@
         <input 
         type="password" 
         name="Password" 
+        value="<%= typeof oldInput !== 'undefined' ? oldInput.Password :'' %>"
         placeholder="Enter your Password" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
        
@@ -47,6 +51,7 @@
         type="password" 
         name="confirm_password" 
         placeholder="Confirm  your Password" 
+         value="<%= typeof oldInput !== 'undefined' ? oldInput.confirm_password :'' %>"
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
        
       >
@@ -54,8 +59,8 @@
         <label class="block text-gray-700">Select User Type:</label>
         <select name="userType" class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" >
           <option value="">Choose your role</option>
-          <option value="host">Host</option>
-          <option value="guest">Guest</option>
+          <option value="host" <%= typeof oldInput !== 'undefined' && oldInput.userType === 'host' ? 'selected' : '' %>>Host</option>
+          <option value="guest" <%= typeof oldInput !== 'undefined' && oldInput.userType === 'guest' ? 'selected' : '' %>>Guest</option>
         </select>
       </div>
       <div class="flex items-center space-x-2">
