@@ -25,36 +25,53 @@
       >
         <input 
         type="email" 
-        name="Email" 
-        value="<%= typeof oldInput !== 'undefined' ? oldInput.Email :'' %>"
-        placeholder="Enter your Email" 
+        name="email" 
+        value="<%= typeof oldInput !== 'undefined' ? oldInput.email :'' %>"
+        placeholder="Enter your email" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
      
       >
         <input 
         type="password" 
-        name="Password" 
-        value="<%= typeof oldInput !== 'undefined' ? oldInput.Password :'' %>"
-        placeholder="Enter your Password" 
+        name="password" 
+        value="<%= typeof oldInput !== 'undefined' ? oldInput.password :'' %>"
+        placeholder="Enter your password" 
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
        
       >
       <input 
         type="password" 
         name="confirm_password" 
-        placeholder="Confirm  your Password" 
+        placeholder="Confirm  your password" 
          value="<%= typeof oldInput !== 'undefined' ? oldInput.confirm_password :'' %>"
         class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
        
       >
-      <div class="space-y-2">
-        <label class="block text-gray-700">Select User Type:</label>
-        <select name="userType" class="w-full px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" >
-          <option value="">Choose your role</option>
-          <option value="host" <%= typeof oldInput !== 'undefined' && oldInput.userType === 'host' ? 'selected' : '' %>>Host</option>
-          <option value="guest" <%= typeof oldInput !== 'undefined' && oldInput.userType === 'guest' ? 'selected' : '' %>>Guest</option>
-        </select>
-      </div>
+       <div class="mb-4">
+          <p class="text-gray-700 mb-2">User Type:</p>
+          <div class="flex space-x-4">
+            <label class="flex items-center">
+              <input 
+                type="radio" 
+                name="userType" 
+                value="guest"
+                class="mr-2"
+                <%= typeof oldInput !== 'undefined' && oldInput.userType === 'guest' ? 'checked' : '' %>
+              />
+              <span class="text-gray-700">Guest</span>
+            </label>
+            <label class="flex items-center">
+              <input 
+                type="radio" 
+                name="userType" 
+                value="host"
+                class="mr-2"
+                <%= typeof oldInput !== 'undefined' && oldInput.userType === 'host' ? 'checked' : '' %>
+              />
+              <span class="text-gray-700">Host</span>
+            </label>
+          </div>
+        </div>
       <div class="flex items-center space-x-2">
         <input 
           type="checkbox" 

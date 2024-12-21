@@ -5,6 +5,7 @@ exports.getAddHome = (req, res, next) => {
     editing: false,
     pagetitle: "Host add your home",
     isLoggedIn: req.session.isLoggedIn,
+    user: req.session.user,
   });
 };
 
@@ -26,6 +27,7 @@ exports.getEditHome = (req, res, next) => {
       editing: editing,
       pagetitle: "Edit your home",
       isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
     });
   });
 };
@@ -52,16 +54,12 @@ exports.getPostHome = (req, res, next) => {
     rating,
     photoUrl,
     description,
+    host:req.session.user._id,
   });
   newHome.save().then(() => {
-    Home.find().then((registerHome) => {
-      res.render("host/host-homes", {
-        homes: registerHome,
-        pagetitle: "Home Hosted",
-        isLoggedIn: req.session.isLoggedIn,
-      });
+      res.render("/host/host-homes")
     });
-  });
+ 
 };
 
 exports.postEditHome = (req, res, next) => {
@@ -97,11 +95,12 @@ exports.postDeleteHome = (req, res, next) => {
 };
 
 exports.getHostHome = (req, res, next) => {
-  Home.find().then((registerHome) => {
+  Home.find({host:req.session.user._id}).then((registerHome) => {
     res.render("host/host-homes", {
       homes: registerHome,
       pagetitle: "airbnb",
       isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
     });
   });
 };

@@ -1,12 +1,17 @@
 const mongoose=require('mongoose');
 
-  const homeSchema= new mongoose.Schema({
+  const userSchema= new mongoose.Schema({
     firstName:{type:String,require:true},
     lastName:{type:String,require:true},
-    Email:{type:String,require:true,unique:true},
-    Password:{type:String,require:true},
+    email:{type:String,require:true,unique:true},
+    password:{type:String,require:true},
     userType:{type:String,require:true,enum:['guest','host']},
-  
+  favouriteHomes:[
+    {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Home',      
+    }
+  ]
   })
 
-   module.exports=mongoose.model('User',homeSchema);
+   module.exports=mongoose.model('User',userSchema);

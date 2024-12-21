@@ -1,135 +1,134 @@
-const {check, validationResult}=require('express-validator');
-const User = require('../models/User');
-const bcrypt=require('bcryptjs')
+const { check, validationResult } = require("express-validator");
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", { pagetitle: "Login", isLoggedIn: false });
 };
-exports.postLogin = (req, res, next) => {
-  const {Email,Password}=req.body;
-  console.log(Email,Password);
-
-  User.findOne({Email}).then(user=>{
-    console.log(user);
-    if(!user){
-     return res.render("auth/login", {
-        pagetitle: "Login", 
+exports.getsignup = (req, res, next) => {
+  res.render("auth/signup", { pagetitle: "signup", isLoggedIn: false });
+};
+exports.postLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+  console.log(email, password);
+try{
+  const user=await User.findOne({email});
+  if (!user) {
+    throw new Error ('User not found');
+  }
+  const isMatch= await bcrypt.compare(password,user.password);
+  if(!isMatch){
+    throw new Error('password  invalid');
+  }
+ req.session.isLoggedIn=true;
+ req.session.user=user;
+ await req.session.save();
+ res.redirect("/");
+}
+catch(err){
+      res.render("auth/login", {
+        pagetitle: "Login",
         isLoggedIn: false,
-        errorMessages:["User not found."]
-        });
-    }
-    res.redirect("/");
-    // req.session.isLoggedIn = true;
-    }
-
-  ).catch(err=>{
-    res.render("auth/login", {
-       pagetitle: "Login", 
-       isLoggedIn: false,
-       errorMessages:[err.message]
-       });
-  })
-
-
+        errorMessages: [err.message],
+      });
+    };
 };
 exports.postLogout = (req, res, next) => {
   req.session.destroy();
   res.redirect("/login");
 };
-exports.getsignup = (req, res, next) => {
-  res.render("auth/signup", { pagetitle: "signup", isLoggedIn: false });
-};
-let firstNameValidator=
 
-exports.postsignup= [
+exports.postsignup = [
   //First Name validatiom
-  check('firstName')
-.notEmpty()
-.withMessage('First name is required')
-.trim()
-.isLength({min:2})
-.withMessage("First name must be at last 2 characters long")
-.matches(/^[a-zA-Z\s]+$/)
-.withMessage('First name can only contain letters'),
+  check("firstName")
+    .notEmpty()
+    .withMessage("First name is required")
+    .trim()
+    .isLength({ min: 2 })
+    .withMessage("First name must be at last 2 characters long")
+    .matches(/^[a-zA-Z\s]+$/)
+    .withMessage("First name can only contain letters"),
 
- //Last Name validatiom
- check('lastName')
- .notEmpty()
- .withMessage('Last name is required')
- .trim()
- .isLength({min:2})
- .withMessage("Last  name must be at last 2 characters long")
- .matches(/^[a-zA-Z\s]*$/)
- .withMessage('Last  name can only contain letters'),
- //Email validation
- check('Email')
- .isEmail()
- .withMessage('Invalid email address')
- .normalizeEmail(),
+  //Last Name validatiom
+  check("lastName")
+    .trim()
+    .matches(/^[a-zA-Z\s]*$/)
+    .withMessage("Last  name can only contain letters")
+,
+  //email validation
+  check("email")
+    .isEmail()
+    .withMessage("Please enter a valid email address")
+    .normalizeEmail(),
 
- //Password validation
- check('Password')
- .notEmpty()
- .withMessage('Password is required')
- .isLength({min:8})
- .withMessage('Password must be at least 8 characters long')
- .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
- .withMessage('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character')
- .trim(),
- //confirm password validation
- check('confirm_password')
- .notEmpty()
- .withMessage('Confirm password is required')
- .custom((value, {req}) => value === req.body.Password)
- .withMessage('Passwords do not match'),
- //user type validation
- check('userType')
- .notEmpty()
- .withMessage('User type is required')
- .isIn(['host', 'guest'])
- .withMessage('Invalid user type'),
-//  termsAndCondition 
- check('terms')
- .custom((value, {req}) => value === 'on')
- .withMessage('You must agree to the terms and conditions'),
-
+  //password validation
+  check("password")
+    .trim()
+    .isLength({ min: 8 })
+    .withMessage("password must be at least 8 characters long")
+    .matches(/[a-z]/)
+    .withMessage("Password should have atleast one small alphabet")
+    .matches(/[A-Z]/)
+    .withMessage('Password should have atleast one capital alphabet')
+    .matches(/[!@#$%^&*_":?]/)
+    .withMessage(
+      "Password should have atleast  one special character"
+    )
+    ,
+  //confirm password validation
+  check("confirm_password")
+    .trim()
+    .custom((value, { req }) =>{
+      if(value !== req.body.password){
+        throw new Error('Confirm Password does not match Password');
+      }
+      return true;
+    }),
+  //user type validation
+  check("userType")
+    .trim()
+    .notEmpty()
+    .withMessage("User type is required")
+    .isIn(["guest","host"])
+    .withMessage("User type is invalid"),
+  //  termsAndCondition
+  check("terms")
+    .notEmpty()
+    .withMessage("Terms and condition must be accepted"),
 
   (req, res, next) => {
-    console.log('Signup',req.body);
-    const errors=validationResult(req);
-if(!errors.isEmpty()){
-  return res.status(422).render("auth/signup", { 
-     pagetitle: "signup",
-     isLoggedIn: false,
-     errorMessages:errors.array().map(err=>err.msg),
-     oldInput:req.body,
+    console.log("User came for Signup", req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).render("auth/signup", {
+        pagetitle: "signup",
+        isLoggedIn: false,
+        errorMessages: errors.array().map((err) => err.msg),
+        oldInput: req.body,
+      });
+    }
+
+    const { firstName, lastName, email, password, userType } = req.body;
+
+    bcrypt.hash(password, 12).then((hashedPassword) => {
+      const user = new User({
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+        userType,
+      });
+      user.save().then((result) => {
+          console.log(result);
+          res.redirect("/login");
+        })
+        .catch((error) => {
+          return res.status(422).render("auth/signup", {
+            pagetitle: "signup",
+            isLoggedIn: false,
+            errorMessages: [error],
+            oldInput: req.body,
+          });
+        });
     });
-}
-
-
-  const {firstName,
-  lastName,
-  Email,
-  Password,
-  userType}=req.body;
-  
-bcrypt.hash(Password,12).then(hashedPassword=>{
-  console.log(hashedPassword);
-  
-  const user=new User({
-    firstName,lastName,Email,Password:hashedPassword,userType
-  });
-  user.save().then(result=>{
-    console.log(result);
-    res.redirect("/login");
-  }).catch(error=>{
-    return res.status(422).render("auth/signup", { 
-      pagetitle: "signup",
-      isLoggedIn: false,
-      errorMessages:[error],
-      oldInput:req.body,
-     });
-  })
-})
-  
   },
-]
+];
