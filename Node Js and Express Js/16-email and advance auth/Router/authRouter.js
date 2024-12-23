@@ -8,4 +8,8 @@ authRouter.post("/login", authController.postLogin);
 authRouter.post("/logout", authController.postLogout);
 authRouter.get("/signup", authController.getsignup);
 authRouter.post("/signup", authController.postsignup);
+authRouter.get("/forgot-password", authController.getForgotPassword);
+authRouter.post("/forgot-password", authController.postForgotPassword);
+authRouter.get("/reset-password", authController.getResetPassword);
+authRouter.post("/reset-password", authController.postResetPassword);
 exports.authRouter = authRouter;
