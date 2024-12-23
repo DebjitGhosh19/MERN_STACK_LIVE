@@ -214,7 +214,8 @@ exports.postResetPassword=[//password validation
           
         }
         const hashedPassword = await bcrypt.hash(password, 12);
-        user.password=hashedPassword;
+        user.password = (await hashedPassword).toString();
+        // user.password=hashedPassword;
         user.otp=undefined;
         user.otpExpiry=undefined;
         await user.save();
