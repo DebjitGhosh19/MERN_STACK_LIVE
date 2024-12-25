@@ -11,9 +11,7 @@ const mongoose=require('mongoose');
         type:mongoose.Schema.Types.ObjectId,
         ref:'Home',      
     }
-  ],
-  otp:String,
-  otpExpiry:Date,
+  ]
   })
 
    module.exports=mongoose.model('User',userSchema);
