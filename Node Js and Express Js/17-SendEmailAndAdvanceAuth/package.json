@@ -16,6 +16,7 @@
     "tailwindcss": "^3.4.14"
   },
   "dependencies": {
+    "@sendgrid/mail": "^8.1.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "connect-mongodb-session": "^5.0.0",

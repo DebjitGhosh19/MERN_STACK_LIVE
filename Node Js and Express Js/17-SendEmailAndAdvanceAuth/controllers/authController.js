@@ -1,6 +1,9 @@
 const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const sendGrid=require("@sendgrid/mail");
+const SEND_GRID_KEY="";
+sendGrid.setApiKey(SEND_GRID_KEY);
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", { pagetitle: "Login", isLoggedIn: false });
 };
@@ -95,7 +98,7 @@ exports.postsignup = [
     .notEmpty()
     .withMessage("Terms and condition must be accepted"),
 
-  (req, res, next) => {
+   async (req, res, next) => {
     console.log("User came for Signup", req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -106,10 +109,9 @@ exports.postsignup = [
         oldInput: req.body,
       });
     }
-
     const { firstName, lastName, email, password, userType } = req.body;
-
-    bcrypt.hash(password, 12).then((hashedPassword) => {
+    try {
+      const hashedPassword= await bcrypt.hash(password, 12);
       const user = new User({
         firstName,
         lastName,
@@ -117,18 +119,24 @@ exports.postsignup = [
         password: hashedPassword,
         userType,
       });
-      user.save().then((result) => {
-          console.log(result);
-          res.redirect("/login");
-        })
-        .catch((error) => {
-          return res.status(422).render("auth/signup", {
-            pagetitle: "signup",
-            isLoggedIn: false,
-            errorMessages: [error],
-            oldInput: req.body,
-          });
-        });
-    });
+      await  user.save();
+
+      const welcomeEmail={
+        to:email,
+        from:'babaighosh24.08.2002@gmail.com',
+        subject:'Welcome to Airbnb',
+        html:`<h1>Welcome ${firstName} ${lastName} please book your first vacation home with us. </h1>`
+      }
+      await sendGrid.send(welcomeEmail);
+      return res.redirect("/login");
+    } catch (error) {
+      return res.status(422).render("auth/signup", {
+        pagetitle: "signup",
+        isLoggedIn: false,
+        errorMessages: [error.message],
+        oldInput: req.body,
+      });
+    } 
   },
 ];
+
