@@ -2,46 +2,69 @@ const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const sendGrid=require("@sendgrid/mail");
+
+
 const SEND_GRID_KEY="";
 sendGrid.setApiKey(SEND_GRID_KEY);
+
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", { pagetitle: "Login", isLoggedIn: false });
 };
 exports.getsignup = (req, res, next) => {
   res.render("auth/signup", { pagetitle: "signup", isLoggedIn: false });
 };
+exports.getForgotPassword=(req,res,next)=>{
+  res.render("auth/forgot", { pagetitle: "Forgot Password", isLoggedIn: false });
+}
+exports.postForgotPassword= async(req,res,next)=>{
+
+
+ const {email}=req.body;
+ console.log(email);
+ try{
+ const user=await User.findOne({email});
+ console.log(user);
+ res.redirect(`/reset-password?email=${email}`);
+}catch(err){
+  res.render('auth/forgot',{
+    pagetitle:'Forgot Password',
+    isLoggedIn:false,
+    errorMessages:[err.message]
+  })
+}
+ 
+}
+
 exports.postLogin = async (req, res, next) => {
   const { email, password } = req.body;
   console.log(email, password);
-try{
-  const user=await User.findOne({email});
-  if (!user) {
-    throw new Error ('User not found');
+  try {
+    const user = await User.findOne({email});
+    if (!user) {
+      throw new Error('User not found');
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      throw new Error('Password invalid');
+    }
+    req.session.isLoggedIn = true;
+    req.session.user = user;
+    await req.session.save();
+    res.redirect("/");
   }
-  const isMatch= await bcrypt.compare(password,user.password);
-  if(!isMatch){
-    throw new Error('password  invalid');
+  catch(err) {
+    res.render("auth/login", {
+      pagetitle: "Login", 
+      isLoggedIn: false,
+      errorMessages: [err.message],
+    });
   }
- req.session.isLoggedIn=true;
- req.session.user=user;
- await req.session.save();
- res.redirect("/");
-}
-catch(err){
-      res.render("auth/login", {
-        pagetitle: "Login",
-        isLoggedIn: false,
-        errorMessages: [err.message],
-      });
-    };
-};
-exports.postLogout = (req, res, next) => {
-  req.session.destroy();
-  res.redirect("/login");
 };
 
+
+
 exports.postsignup = [
-  //First Name validatiom
+  //First Name validation
   check("firstName")
     .notEmpty()
     .withMessage("First name is required")
@@ -51,37 +74,42 @@ exports.postsignup = [
     .matches(/^[a-zA-Z\s]+$/)
     .withMessage("First name can only contain letters"),
 
-  //Last Name validatiom
+  //Last Name validation
   check("lastName")
     .trim()
     .matches(/^[a-zA-Z\s]*$/)
-    .withMessage("Last  name can only contain letters")
-,
+    .withMessage("Last name can only contain letters"),
+
   //email validation
   check("email")
     .isEmail()
     .withMessage("Please enter a valid email address")
-    .normalizeEmail(),
+    .normalizeEmail()
+    .custom(async (email) => {
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        throw new Error('Email already exists');
+      }
+      return true;
+    }),
 
   //password validation
   check("password")
     .trim()
     .isLength({ min: 8 })
-    .withMessage("password must be at least 8 characters long")
+    .withMessage("Password must be at least 8 characters long")
     .matches(/[a-z]/)
-    .withMessage("Password should have atleast one small alphabet")
+    .withMessage("Password should have at least one small alphabet")
     .matches(/[A-Z]/)
-    .withMessage('Password should have atleast one capital alphabet')
+    .withMessage('Password should have at least one capital alphabet')
     .matches(/[!@#$%^&*_":?]/)
-    .withMessage(
-      "Password should have atleast  one special character"
-    )
-    ,
+    .withMessage("Password should have at least one special character"),
+
   //confirm password validation
   check("confirm_password")
     .trim()
-    .custom((value, { req }) =>{
-      if(value !== req.body.password){
+    .custom((value, { req }) => {
+      if(value !== req.body.password) {
         throw new Error('Confirm Password does not match Password');
       }
       return true;
@@ -93,7 +121,8 @@ exports.postsignup = [
     .withMessage("User type is required")
     .isIn(["guest","host"])
     .withMessage("User type is invalid"),
-  //  termsAndCondition
+
+  //termsAndCondition
   check("terms")
     .notEmpty()
     .withMessage("Terms and condition must be accepted"),
@@ -101,32 +130,29 @@ exports.postsignup = [
    async (req, res, next) => {
     console.log("User came for Signup", req.body);
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).render("auth/signup", {
+     if (!errors.isEmpty()) {
+       return res.status(422).render("auth/signup", {
         pagetitle: "signup",
         isLoggedIn: false,
         errorMessages: errors.array().map((err) => err.msg),
         oldInput: req.body,
       });
     }
-    const { firstName, lastName, email, password, userType } = req.body;
+      const { firstName, lastName, email, password, userType } = req.body;
     try {
-      const hashedPassword= await bcrypt.hash(password, 12);
+      const hashedPassword = await bcrypt.hash(password, 12);
       const user = new User({
-        firstName,
-        lastName,
-        email,
-        password: hashedPassword,
-        userType,
+        firstName,lastName,email,password: hashedPassword,userType,
       });
-      await  user.save();
+          
+      await user.save();
 
-      const welcomeEmail={
+      const welcomeEmail = {
         to:email,
         from:'babaighosh24.08.2002@gmail.com',
-        subject:'Welcome to Airbnb',
-        html:`<h1>Welcome ${firstName} ${lastName} please book your first vacation home with us. </h1>`
-      }
+        subject: 'Welcome to Airbnb',
+        html: `<h1>Welcome ${firstName} ${lastName} please book your first vacation home with us.</h1>`
+      };
       await sendGrid.send(welcomeEmail);
       return res.redirect("/login");
     } catch (error) {
@@ -139,4 +165,7 @@ exports.postsignup = [
     } 
   },
 ];
-
+exports.postLogout = (req, res, next) => {
+  req.session.destroy();
+  res.redirect("/login");
+};
