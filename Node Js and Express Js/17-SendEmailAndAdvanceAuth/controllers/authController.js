@@ -7,6 +7,8 @@ const MILLIS_IN_MINUTE=60*1000;
 const SEND_GRID_KEY="";
 sendGrid.setApiKey(SEND_GRID_KEY);
 
+const {firstNameValidation,lastNameValidation,emailValidation,passwordValidation,confirmPasswordValidation,userTypeValidation,termsValidation}=require('./validations')
+
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", { pagetitle: "Login", isLoggedIn: false });
 };
@@ -58,27 +60,7 @@ exports.getResetPassword = (req, res, next) => {
 });
 };
 exports.postResetPassword =[ 
-   //password validation
-  check("password")
-    .trim()
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters long")
-    .matches(/[a-z]/)
-    .withMessage("Password should have at least one small alphabet")
-    .matches(/[A-Z]/)
-    .withMessage('Password should have at least one capital alphabet')
-    .matches(/[!@#$%^&*_":?]/)
-    .withMessage("Password should have at least one special character"),
-
-  //confirm password validation
-  check("confirm_password")
-    .trim()
-    .custom((value, { req }) => {
-      if(value !== req.body.password) {
-        throw new Error('Confirm Password does not match Password');
-      }
-      return true;
-    }),
+  passwordValidation,confirmPasswordValidation,
    async (req, res, next) => {
  const {email,otp,password,confirm_password}=req.body;
 
@@ -145,69 +127,7 @@ exports.postLogin = async (req, res, next) => {
 
 
 exports.postsignup = [
-  //First Name validation
-  check("firstName")
-    .notEmpty()
-    .withMessage("First name is required")
-    .trim()
-    .isLength({ min: 2 })
-    .withMessage("First name must be at last 2 characters long")
-    .matches(/^[a-zA-Z\s]+$/)
-    .withMessage("First name can only contain letters"),
-
-  //Last Name validation
-  check("lastName")
-    .trim()
-    .matches(/^[a-zA-Z\s]*$/)
-    .withMessage("Last name can only contain letters"),
-
-  //email validation
-  check("email")
-    .isEmail()
-    .withMessage("Please enter a valid email address")
-    .normalizeEmail()
-    .custom(async (email) => {
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        throw new Error('Email already exists');
-      }
-      return true;
-    }),
-
-  //password validation
-  check("password")
-    .trim()
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters long")
-    .matches(/[a-z]/)
-    .withMessage("Password should have at least one small alphabet")
-    .matches(/[A-Z]/)
-    .withMessage('Password should have at least one capital alphabet')
-    .matches(/[!@#$%^&*_":?]/)
-    .withMessage("Password should have at least one special character"),
-
-  //confirm password validation
-  check("confirm_password")
-    .trim()
-    .custom((value, { req }) => {
-      if(value !== req.body.password) {
-        throw new Error('Confirm Password does not match Password');
-      }
-      return true;
-    }),
-  //user type validation
-  check("userType")
-    .trim()
-    .notEmpty()
-    .withMessage("User type is required")
-    .isIn(["guest","host"])
-    .withMessage("User type is invalid"),
-
-  //termsAndCondition
-  check("terms")
-    .notEmpty()
-    .withMessage("Terms and condition must be accepted"),
-
+  firstNameValidation,lastNameValidation,emailValidation,passwordValidation,confirmPasswordValidation,userTypeValidation,termsValidation,
    async (req, res, next) => {
     console.log("User came for Signup", req.body);
     const errors = validationResult(req);
