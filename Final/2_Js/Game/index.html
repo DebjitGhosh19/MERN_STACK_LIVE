@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+    <h1>Bat Ball Stump Game</h1>
+    <button onclick="
+  let computerChoice=generateComputerChoice()
+  let result=getResult('Bat', computerChoice);
+  showResult('Bat', computerChoice, result)
+  "><img src="./images/bat.jpg" alt="Bat"></button>
+    <button onclick="
+     computerChoice=generateComputerChoice()
+     result=getResult('Ball', computerChoice)
+     showResult('Ball', computerChoice, result)
+    "><img src="./images/ball.jpg" alt="Ball"></button>
+    <button onclick="
+    computerChoice=generateComputerChoice()
+    result=getResult('Stump', computerChoice)
+    showResult('Stump', computerChoice, result)
+     "><img src="./images/stump.jpg" alt="stump"></button>
+     
+     <h3 id="user-move"></h3>
+     <h3 id="computer-move"></h3>
+     <h3 id="result"></h3>
+     <h3 id="score"></h3>
+     <button class="reset" onclick=" localStorage.clear();reset()">Reset</button>
+</body>
+<script src="./app.js"></script>
+</html>

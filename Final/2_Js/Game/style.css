@@ -1,0 +1,21 @@
+body {
+  text-align: center;
+}
+button{
+  width: 100px;
+  height: 100px;
+  background: lightgreen;
+  border: none;
+  border-radius: 10px;
+}
+button img{
+  width: 75px;
+}
+.reset{
+  height: 40px;
+  width: 70px;
+  background: red;
+  color: aliceblue;
+  font-weight: bold;
+  border: none;
+  }
