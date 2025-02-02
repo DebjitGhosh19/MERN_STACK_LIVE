@@ -16,3 +16,4 @@ const users=[
   email:'ghoshJit@gmail.com'
  } 
 ]
+module.exports=users;
