@@ -1,0 +1,14 @@
+*{
+padding: 0;
+margin: 0;
+
+}
+.Parent{
+  background: #000;
+  color: white;
+}
+.Child{
+padding: 10px;
+background: gray;
+color: wheat;
+}
