@@ -1,0 +1,35 @@
+form{
+  background: #333;
+  margin: 10px;
+  padding: 10px;
+  width: 50%;
+  height: 25vh;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+/* .div1{
+display: flex;
+justify-content: center;
+align-items: center;
+} */
+.lable1{
+  display: inline-block;
+border-radius: 5px;
+width: 20%;
+}
+ .input1{
+  width: 70%;
+  height: 30px;
+  border-radius: 5px;
+}
+.btn{
+  border-radius: 5px;
+  height: 20%;
+  width: 100%;
+  padding: 5px;
+  font-size:15px;
+  font-weight:bold;
+}  
