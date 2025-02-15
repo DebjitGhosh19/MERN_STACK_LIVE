@@ -1,0 +1,81 @@
+:root {
+  --primary-color: #007bff;
+  --primary-hover-color: #0056b3;
+  --secondary-color: #373737;
+  --background-color: #e9ecef;
+  --item-background-color: #ffffff;
+  --item-hover-background-color: #f8f9fa;
+  --text-color: #495057;
+  --box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --border-radius: 10px;
+  --transition-speed: 0.3s;
+  --additional-bg-color: #ffea00; /* Updated yellow background color */
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #000000, #333333); /* Updated black gradient background */
+  margin: 0;
+  padding: 40px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid #000000;
+  border-radius: var(--border-radius);
+  background-color: var(--additional-bg-color);
+  box-shadow: var(--box-shadow);
+  margin: 40px auto;
+  padding: 40px;
+  max-width: 800px;
+}
+
+.contener {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--secondary-color);
+  margin: 10px;
+  padding: 30px;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: var(--item-background-color);
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  margin-bottom: 15px;
+  transition: background-color var(--transition-speed);
+}
+
+.item:hover {
+  background-color: var(--item-hover-background-color);
+}
+
+button {
+  font-size: large;
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+button:hover {
+  background-color: var(--primary-hover-color);
+}
+
+span {
+  font-size: 14px;
+  color: var(--text-color);
+}
