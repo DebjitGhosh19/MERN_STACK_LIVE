@@ -1,6 +1,3 @@
-
-
-
 function App() {
 
   const  myHeading={

@@ -1,0 +1,28 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: gray;
+}
+h1{
+  text-align: center;
+  color: white;
+}
+.contener{
+width: 1000px;
+  display: flex;
+ align-items: center;
+ flex-wrap: wrap;
+}
+.card{
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  height: 150px;
+  background: black;
+  color: white;
+  border-radius: 10px;
+}
+.Username{
+  color: yellow;
+}

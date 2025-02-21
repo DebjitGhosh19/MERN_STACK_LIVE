@@ -7,9 +7,15 @@ const dataFetch = () => {
   useEffect(()=>{
   
     fetch("https://jsonplaceholder.typicode.com/users").then((res)=>{
+      if(!res.ok){
+        throw new Error("Data featching is not successful")
+      }
       return res.json()})
         .then((data)=>{
            settodos(data)
+        }).catch((error)=>{
+          console.log(error);
+          
         })
   },[])
   return (
