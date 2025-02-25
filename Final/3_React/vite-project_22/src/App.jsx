@@ -36,15 +36,20 @@ const removeCuntry=(cn)=>{
 console.log(cn);
 const filter=filterData.filter((country)=>country.name.common!==cn)
   setfilterData(filter)
-
-  
 }
-
+const searchHandelar=(SearchValue)=>{
+  const value=SearchValue.toLowerCase();
+  const NewCountry=countries.filter((countries)=>{
+    const country=countries.name.common.toLowerCase();
+    return country.startsWith(value)
+  })
+  setfilterData(NewCountry)
+}
   return (
     <>
   
       <h1>Country App</h1>
-      <Search/>
+      <Search searchHandelar={searchHandelar}/>
       {isLoading && <h3>Loading...</h3>}
       {error && <h3>Error:{error}</h3>}
       {countries && <Countries countries={filterData} removeCuntry={removeCuntry}/>}
