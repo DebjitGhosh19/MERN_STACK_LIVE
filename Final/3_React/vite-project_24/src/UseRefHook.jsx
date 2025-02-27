@@ -8,7 +8,7 @@ const UseRefHook = () => {
     event.preventDefault()
     let userName=UserName.current.value;
     let password=Password.current.value;
-console.log({userName,password});
+console.log(userName,password);
 
   }
   return (
