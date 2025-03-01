@@ -1,14 +1,13 @@
 
 import './App.css'
-import UseRefHook_5 from './UseRefHook_5'
-
+import UseReducer_2 from './UseReducer_2'
 
 function App() {
-
+ 
 
   return (
    <>
-<UseRefHook_5/>
+   <UseReducer_2/>
    </>
   )
 }
