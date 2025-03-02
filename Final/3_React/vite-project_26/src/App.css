@@ -1,0 +1,35 @@
+.counter {
+  font-size: 2rem;
+  text-align: center;
+  margin: 20px;
+  padding: 10px; /* Added padding */
+}
+
+.increment {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px; /* Added margin-right */
+}
+
+.decrement {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px; /* Added margin-left */
+}
+.reset{
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+}
