@@ -1,6 +1,8 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import { UserContext } from './Contex/UserContext';
 
-const User = ({user,handelDelete}) => {
+const User = ({user}) => {
+  const {users, setUsers} = useContext(UserContext)
   const articleStyle = {
     border: '1px solid #ccc',
     padding: '10px',
@@ -18,7 +20,8 @@ const User = ({user,handelDelete}) => {
     cursor: 'pointer'
   };
 const onclickhandelDelete=(id)=>{
-  handelDelete(id)
+  const filterUsers=users.filter((user)=>user.id!==id)
+setUsers(filterUsers)
 
 }
   return (

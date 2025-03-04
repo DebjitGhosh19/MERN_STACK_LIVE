@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { UserContext } from './Contex/UserContext';
 
-const NewUser = ({ AddHandelar }) => {
+const NewUser = () => {
+  const {users, setUsers} = useContext(UserContext)
+
+
   const [newUser, setnewUser] = useState("");
   
   const inputHandler = (event) => {
@@ -11,7 +15,9 @@ const NewUser = ({ AddHandelar }) => {
   const SubmitHandelar = (event) => {
     event.preventDefault();
     const NewUser = { id: uuidv4(), userName: newUser };
-    AddHandelar(NewUser);
+  setUsers((previousState)=>{
+  return [...previousState,NewUser]
+})
     setnewUser("");
   };
 

@@ -1,11 +1,13 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import User from './User'
+import { UserContext } from './Contex/UserContext'
 
-const Users = ({users,handelDelete}) => {
+const Users = () => {
+  const {users,setUsers} = useContext(UserContext)
   return (
     <section>
       {users.map(user=>{
-        return <User key={user.id} user={user} handelDelete={handelDelete}/>
+        return <User key={user.id} user={user} />
       })}
     </section>
   )
