@@ -12,7 +12,7 @@ import Product from './pages/Product'
 import Navbar from './components/Navbar'
 const App = () => {
   return (
-    <div className='px-4 sm:[5vw] md:[7vw] lg:[9vw]'>
+    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
       <BrowserRouter>
       <Navbar/>
       <Routes>
