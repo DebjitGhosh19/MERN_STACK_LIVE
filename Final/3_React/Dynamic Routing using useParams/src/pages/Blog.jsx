@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from "react-router"
-import { data } from '../../data'
+import React from 'react'
+import {  useLocation, useParams, } from "react-router"
+
 
 const Blog = () => {
   let {title} = useParams()
-
-   const [blogs, setblog] = useState(data)
-   const [FilterData, setFilterData] = useState()
-  useEffect(() => {
-  const filterDAta=blogs.filter((blog)=>blog.title===title)
- 
-const body=filterDAta[0].body;
-setFilterData(body)
-  
-  }, [])
-  
+const location=useLocation();
   return (
     <div>
 <h1>{title}</h1>
-<p>{FilterData}</p>
+<p>{location.state.body}</p>
     </div>
   )
 }

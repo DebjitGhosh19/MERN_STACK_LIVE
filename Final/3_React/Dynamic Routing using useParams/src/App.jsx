@@ -8,6 +8,7 @@ import Bloges from './pages/Bloges'
 
 import Navbar from '../Components/Navbar'
 import Blog from './pages/Blog'
+import Users from './pages/Users'
 
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
     <Route path="/contact" element={<Contact/>} />
     <Route path="/bloges" element={<Bloges/>} />
     <Route path="/bloges/:title" element={<Blog/>} />
-
+    <Route path='/users' element={<Users/>}/>
     </Routes>
     </BrowserRouter>
   )
