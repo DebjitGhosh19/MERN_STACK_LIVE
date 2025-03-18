@@ -2,14 +2,6 @@ const express=require("express");
 const app=express();
 const port=3000;
 const mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost:27017/User1').then(()=>{
-//   console.log("Db connected"); 
-// }
-// ).catch((err)=>{
-//   console.log("Not Connect");
-//   console.log(err);  
-// })
-
 
 const connectDb=async () => {
   try {
