@@ -2,6 +2,20 @@ const express=require("express");
 const app=express();
 const port=3000;
 const mongoose = require('mongoose');
+app.use(express.json());
+// create product  schema
+const productSchema=new mongoose.Schema({
+  title:String,
+  price:Number,
+  decsription:String,
+  createdAt:{
+    type:Date,
+    default:Date.now
+  }
+})
+//create product model
+const product=mongoose.model("products",productSchema);
+
 
 const connectDb=async () => {
   try {
@@ -20,4 +34,18 @@ app.listen(port,async()=>{
 })
 app.get("/",(req,res)=>{
   res.send("Welcome")
+})
+app.post("/products",async(req,res)=>{
+  try {
+    const newProduct=new product({
+      title:req.body.title,
+      price:req.body.price,
+      decsription:req.body.decsription,
+    })
+    await newProduct.save()
+    res.send("ok")
+  } catch (error) {
+    console.log({message:error.message});
+    
+  }
 })
