@@ -16,15 +16,15 @@ try {
 const productSchema=new mongoose.Schema({
   title:{
     type:String,
-    require:true
+    required:true
   },
   price:{
     type:Number,
-    require:true
+    required:true
   },
   dec:{
     type:String,
-    require:true
+    required:true
   },
   createdAt:{
     type:Date,
