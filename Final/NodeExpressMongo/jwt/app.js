@@ -1,21 +1,22 @@
+
+require("./config/database");
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-require("./config/database");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-const user = require("./models/user.model");
+const User = require("./models/user.model");
 //Home Route
 app.get("/", (req, res) => {
   res.send("Welcome");
 });
 //Register page
-app.post("/register", async (req, res) => {
-  
-});
+
+
 //Login page
 app.post("/login", (req, res) => {
   res.send("Welcome to login page");
