@@ -9,7 +9,9 @@ const Login = () => {
 const handelInputData=(e)=>{
   e.preventDefault();
   console.log(fullname,email,password);
-  
+  setfullname("");
+  setemail("");
+  setpassword("");
 }
   return (
     <div   className="h-screen bg-cover bg-center"
