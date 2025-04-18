@@ -1,7 +1,5 @@
-const mongoose=require("mongoose");
 const { User } = require("../model/user.model");
-
-const getRegisterData=async (eq,res) => {
+const getRegisterData=async (req,res) => {
   const {username,email,password}=req.body;
   if (!username||!email ||!password) {
     res.status(404).json({
@@ -16,12 +14,12 @@ const getRegisterData=async (eq,res) => {
       success:false
     })
   }
-  const newUser=await new User({
+  const newUser= new User({
     username,
     email,
     password
   })
-  newUser.save().then(()=>{
+  await newUser.save().then(()=>{
     console.log("New User save");
   })
   .catch((err)=>{
