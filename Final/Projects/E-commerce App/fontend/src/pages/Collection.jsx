@@ -9,8 +9,8 @@ const Collection = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [FilterProducts, setFilterProducts] = useState([]);
   const [category, setcategory] = useState([]);
-  const [subcategory, setSubcategory] = useState([]);
-
+  const [subCategory, setsubCategory] = useState([]);
+  const [sortType, setsortType] = useState("Relevent");
   const togglecategory = (e) => {
     if (category.includes(e.target.value)) {
       setcategory((prev) => prev.filter((item) => item !== e.target.value));
@@ -18,11 +18,11 @@ const Collection = () => {
       setcategory((prev) => [...prev, e.target.value]);
     }
   };
-  const toggleSubcategory = (e) => {
-    if (subcategory.includes(e.target.value)) {
-      setSubcategory((prev) => prev.filter((item) => item !== e.target.value));
+  const togglesubCategory = (e) => {
+    if (subCategory.includes(e.target.value)) {
+      setsubCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
-      setSubcategory((prev) => [...prev, e.target.value]);
+      setsubCategory((prev) => [...prev, e.target.value]);
     }
   };
   const applyFilter = () => {
@@ -32,15 +32,38 @@ const Collection = () => {
         category.includes(item.category)
       );
     }
+    if (subCategory.length > 0) {
+      productsCopy = productsCopy.filter((item) =>
+        subCategory.includes(item.subCategory)
+      );
+    }
     setFilterProducts(productsCopy);
   };
-  useEffect(() => {
-    setFilterProducts(products);
-  }, []);
+
+  const sortProduct = () => {
+    let fpCopy = FilterProducts.slice();
+    switch (sortType) {
+      case "Low-high":
+        setFilterProducts(fpCopy.sort((a,b) => a.price - b.price));
+        break;
+      case "High-Low":
+        setFilterProducts(fpCopy.sort((a,b) => b.price - a.price));
+        break;
+      default:
+        applyFilter();
+        break;
+    }
+  };
+
+  // useEffect(() => {
+  //   setFilterProducts(products);
+  // }, []);
   useEffect(() => {
     applyFilter();
-  }, [category, subcategory]);
-
+  }, [category, subCategory]);
+  useEffect(() => {
+    sortProduct();
+  }, [sortType]);
   return (
     <div className="flex flex-col sm:flex-row gap-1 pt-10 sm:gap-10 border-t ">
       {/* Filter Options */}
@@ -93,7 +116,7 @@ const Collection = () => {
             </p>
           </div>
         </div>
-        {/* Subcategory Filter*/}
+        {/* subCategory Filter*/}
         <div
           className={`border border-gray-300  pl-5 py-3 my-5 ${
             showFilter ? "" : "hidden"
@@ -105,8 +128,8 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value="topwear"
-                onChange={toggleSubcategory}
+                value="Topwear"
+                onChange={togglesubCategory}
               />
               Topwear
             </p>
@@ -114,8 +137,8 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value="bottomwear"
-                onChange={toggleSubcategory}
+                value="Bottomwear"
+                onChange={togglesubCategory}
               />
               Bottomwear
             </p>
@@ -123,8 +146,8 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value="winterwear"
-                onChange={toggleSubcategory}
+                value="Winterwear"
+                onChange={togglesubCategory}
               />
               Winterwear
             </p>
@@ -133,10 +156,13 @@ const Collection = () => {
       </div>
       {/* Products */}
       <div className="flex-1">
-        <div className="flex justify-between text-base sm:text-2xl mb-4">
+        <div className="flex justify-between text-base sm:text-2xl  mb-4">
           <Title text1={"ALL"} text2={"COLLECTION"} />
           {/* Product Short */}
-          <select className="border border-gray-300 px-2 text-sm">
+          <select
+            className="border border-gray-300 px-2 text-sm "
+            onChange={(e) => setsortType(e.target.value)}
+          >
             <option value="Relevent">Short by: Relevent</option>
             <option value="Low-high">Short by: Low to High</option>
             <option value="High-Low">Short by: High to Low</option>
