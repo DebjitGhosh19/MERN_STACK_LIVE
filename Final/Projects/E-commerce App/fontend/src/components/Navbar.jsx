@@ -73,7 +73,7 @@ const Navbar = () => {
       </div>
       <div className={`absolute top-0 bottom-0 right-0 overflow-hidden transition-all bg-white ${menu?'w-full':'w-0'}`}>
           <div className="text-gray-500 flex flex-col">
-            <div onClick={()=>setmenu(false)} className="flex  gap-4 py-2 items-center cursor-pointer"> 
+            <div onClick={()=>setmenu(false)} className="flex  gap-4 py-2 items-center cursor-pointer "> 
             <img src={assets.dropdown_icon} alt="" className="rotate-180 h-4 ml-5 " />
             <p>Back</p>
             </div>
