@@ -44,7 +44,7 @@ const Navbar = () => {
             <img src={assets.cart_icon} className="w-5 min-w-5 " alt="" />
             <p className="bg-black text-white text-[8px] rounded-full absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4">10</p>
           </Link>
-        <img onClick={()=>setVisiable(true)} src={assets.menu_icon} className="w-5 sm:hidden" alt="" />
+        <img onClick={()=>setVisiable(true)} src={assets.menu_icon} className="w-5 sm:hidden cursor-pointer" alt="" />
       </div>
     </div>
     <div className={`absolute top-0 bottom-0 right-0 overflow-hidden bg-white ${visiable?'w-full':'w-0'} `}>
