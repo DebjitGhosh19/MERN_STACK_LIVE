@@ -40,13 +40,17 @@ const ApplyFilter=()=>{
   
 }
 const ShortFilter=()=>{
-  let FcProduct=productCopy.slice();
+  let FpCopy=Filter.slice();
   switch (Type) {
   case "LowToHigh":
-    
+    setFilter((FpCopy.sort((a,b)=>(a.price-b.price))))
+    break
+     case "HighToLow":
+    setFilter((FpCopy.sort((a,b)=>(b.price-a.price))))
     break
 
   default:
+    ApplyFilter()
     break;
 }
 }
@@ -54,13 +58,10 @@ useEffect(() => {
    ApplyFilter()
 }, [Catagory,SubCatagory])
 
+useEffect(() => {
+ShortFilter()
+}, [Type])
 
-  {
-    console.log(Catagory);
-    console.log(SubCatagory);
-    
-    
-  }
   return (
   
     
@@ -110,7 +111,7 @@ useEffect(() => {
         <div className=" w-full  p-4">
           <div className="flex justify-between items-center gap-2">
               <Title text1="ALL" text2="COLLECTION"/>         
-            <select name="" id="" onClick={(e)=>setType(e.target.value)} className="border border-gray-300 p-2 rounded-md">
+            <select name="" id="" onChange={(e)=>setType(e.target.value)} className="border border-gray-300 p-2 rounded-md">
               <option value="Relavent">Short by:Relevent</option>
               <option value="LowToHigh">Short by:Low to High</option>
               <option value="HighToLow">Short by: High to Low</option>
