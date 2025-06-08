@@ -4,7 +4,7 @@ import { ShopContext } from "../context/ShowpConext";
 import ProductsItem from "../components/ProductsItem";
 import Title from '../components/Title'
 const Collection = () => {
-    const { products} = useContext(ShopContext);
+    const { products,Search,ShowSearch} = useContext(ShopContext);
   const [VisableFilter, setVisableFilter] = useState(false);
   
 const [Filter, setFilter] = useState([]);
@@ -30,6 +30,9 @@ setSubCatagory((prev)=>prev.filter((item)=>item!==e.target.value))
 
 const ApplyFilter=()=>{
   let productCopy=products.slice();
+  if (Search&&ShowSearch) {
+    productCopy=productCopy.filter(item=>item.name.toLowerCase().includes(Search.toLowerCase()))
+  }
   if (Catagory.length>0) {
     productCopy=productCopy.filter((item)=>(Catagory.includes(item.category)))
   }
@@ -56,7 +59,7 @@ const ShortFilter=()=>{
 }
 useEffect(() => {
    ApplyFilter()
-}, [Catagory,SubCatagory])
+}, [Catagory,SubCatagory,Search,ShowSearch])
 
 useEffect(() => {
 ShortFilter()
