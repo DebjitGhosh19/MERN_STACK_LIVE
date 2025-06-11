@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useContext, useState } from "react";
-import { ShopContext } from "../context/ShowpConext";
+import { ShopContext } from "../context/ShowpContext";
 const Navbar = () => {
   const [visiable, setVisiable] = useState(false)
  const {ShowSearch,setShowSearch}=useContext(ShopContext)
