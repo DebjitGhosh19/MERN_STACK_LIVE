@@ -71,6 +71,7 @@ const Navbar = () => {
         </NavLink>
         </div>
     </div>
+    
     </>
   );
 };
