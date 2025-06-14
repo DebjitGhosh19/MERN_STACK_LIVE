@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { ShopContext } from "../context/ShowpContext";
 const Navbar = () => {
   const [visiable, setVisiable] = useState(false)
- const {ShowSearch,setShowSearch}=useContext(ShopContext)
+ const {ShowSearch,setShowSearch,getCartData}=useContext(ShopContext)
  
   
   return (
@@ -46,7 +46,7 @@ const Navbar = () => {
         </div>
         <Link to='/cart' className="relative" >
             <img src={assets.cart_icon} className="w-5 min-w-5 " alt="" />
-            <p className="bg-black text-white text-[8px] rounded-full absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4">10</p>
+            <p className="bg-black text-white text-[8px] rounded-full absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4">{getCartData()}</p>
           </Link>
         <img onClick={()=>setVisiable(true)} src={assets.menu_icon} className="w-5 sm:hidden cursor-pointer" alt="" />
       </div>

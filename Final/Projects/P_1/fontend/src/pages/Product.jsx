@@ -7,7 +7,7 @@ import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency,addToCart,} = useContext(ShopContext);
   const { productId } = useParams();
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
@@ -16,9 +16,7 @@ const Product = () => {
   const fetchProductData = async () => {
     products.map((item) => {
       if (item._id === productId) {
-        setProductData(item);
-        console.log(item);
-        
+        setProductData(item);       
         setImage(item.image[0]);
         return null;
       }
@@ -77,7 +75,7 @@ const Product = () => {
           }
           </div>
         </div>
-          <button className="bg-black w-38 text-white px-4 py-2 mt-4 active:bg-gray-700">ADD TO CART</button>
+          <button onClick={()=>addToCart(productData._id,Size)} className="bg-black w-38 text-white px-4 py-2 mt-4 active:bg-gray-700 cursor-pointer">ADD TO CART</button>
           <hr className="my-4 border-gray-200"/>
           <div className="text-gray-400 flex flex-col  text-sm">
             <p>100% Origianl product.</p>
