@@ -41,11 +41,33 @@ const getCartData=()=>{
   }
   return totalCount;
 }
+const updateQuantity=async(itemId,size,quantity)=>{
+  
+let cartData=structuredClone(CartItems);
+cartData[itemId][size]=quantity;
+setCartItems(cartData);
+}
+const getCartAmount=()=>{
+  let totalAmount=0;
+  for(const items in CartItems){
+   let productInfo=products.find(products=>products._id===items)
+   for(const item in CartItems[items]){
+    if (CartItems[items][item]>0) {
+     totalAmount+=productInfo.price*CartItems[items][item]
+      
+    }
+   }
+  }
+ 
+  
+  return totalAmount
+} 
+
 
  const value={
     products,
     delevery_fee,
-    currency,Search,setSearch,ShowSearch,setShowSearch,addToCart,CartItems,getCartData
+    currency,Search,setSearch,ShowSearch,setShowSearch,addToCart,CartItems,getCartData,updateQuantity,getCartAmount
   }
   return <ShopContext.Provider value={value}>
 {props.children}

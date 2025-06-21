@@ -50,8 +50,7 @@ const ShortFilter=()=>{
     break
      case "HighToLow":
     setFilter((FpCopy.sort((a,b)=>(b.price-a.price))))
-    break
-
+    break;
   default:
     ApplyFilter()
     break;
@@ -66,8 +65,7 @@ ShortFilter()
 }, [Type])
 
   return (
-  
-    
+     
     <div>
       <hr />
       <div className="flex flex-col sm:flex-row py-10 gap-2">

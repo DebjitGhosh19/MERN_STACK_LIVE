@@ -3,7 +3,6 @@ import React from 'react'
 const NewsLetterBox = () => {
   const onSubmitHandelar=(event)=>{
     event.preventDefault();
-
   }
   return (
     <div className='text-center flex flex-col items-center justify-center gap-2 my-10'>
