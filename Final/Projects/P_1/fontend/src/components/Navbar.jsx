@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className="flex gap-6 justify-center items-center">
         <img onClick={()=>{setShowSearch(true)}} src={assets.search_icon} className="w-5 cursor-pointer" alt="" />
         <div className="group relative ">
-          <img src={assets.profile_icon} className="w-5 cursor-pointer" alt="" />
+         <Link to={"/login"}> <img src={assets.profile_icon} className="w-5 cursor-pointer" alt="" /></Link>
           <div  className="hidden group-hover:flex absolute right-0 pt-3 text-gray-700 ">
               <div className="bg-gray-100 w-36  flex flex-col justify-center items-center gap-2 py-2 rounded" >
                 <p className="hover:text-black cursor-pointer">My Profile</p>
