@@ -17,12 +17,12 @@ app.use(cors());
 
 
 //Api endpoints
-
+app.use('/api/user',userRouter);
+app.use('/api/product',productRouter);
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
-app.use('/api/user',userRouter);
-app.use('/api/product',productRouter);
+
 
 app.listen(port,()=>{
   console.log(`Server is running at http://localhost:${port}`);
