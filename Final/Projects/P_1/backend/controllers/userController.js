@@ -62,5 +62,16 @@ res.json({success:true,token})
 }
 //Route for admin login
 export const adminLogin=async(req,res)=>{
-res.send('postAdmin')
+try {
+  const {email,password}=req.body;
+  if (email==process.env.ADMINEMAIL&& password==process.env.ADMINPASSWORD) {
+    const token=jwt.sign(email+password,process.env.JWT_SECRATE)
+    res.json({success:true, token})
+  } else {
+    res.json({success:false,message:"Invalid credantial"})
+  }
+} catch (error) {
+   console.log(error);
+  res.json({success:false,message:error.message})
+}
 }
