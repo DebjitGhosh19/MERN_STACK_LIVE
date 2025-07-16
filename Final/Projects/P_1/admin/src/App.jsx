@@ -6,12 +6,19 @@ import Add from './pages/Add';
 import ProductsList from './pages/ProductsList';
 import Orders from './pages/Orders';
 import Login from './components/Login';
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+// export const backendUrl='http://localhost:3000'
+export const backendUrl = import.meta.env.VITE_Backend_Url
 const App = () => {
+ 
   const [token, setToken] = useState('')
   return (
+  
     <div className='bg-gray-50 min-h-screen'>
+        <ToastContainer/>
       {
-        token==''?<Login/>:
+        token==''?<Login setToken={setToken}/>:
           <>
       <Navbar/>
        <hr/>
