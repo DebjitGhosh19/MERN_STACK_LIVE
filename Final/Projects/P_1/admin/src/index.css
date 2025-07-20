@@ -4,7 +4,7 @@
 *{
   font-family: "Outfit";
 }
-a.active{
+.active{
   background-color:rgba(247, 206, 214, 0.41);
  border: 1px solid rgb(189, 123, 134);
  border-right:0px;

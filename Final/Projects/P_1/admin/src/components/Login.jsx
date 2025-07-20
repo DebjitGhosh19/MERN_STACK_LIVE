@@ -3,24 +3,25 @@ import axios from "axios";
 import { backendUrl } from "../App";
 import { toast } from "react-toastify";
 
-const Login = ({setToken}) => {
+const Login = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const onSubmitHandelar = async (e) => {
     try {
-   e.preventDefault();      
-   const response=await axios.post(backendUrl+'/api/user/admin',{email,password})
-   console.log(response);
- if (response.data.success) {
-    setToken(response.data.token)
- }
-else{
-    toast.error(response.data.messge);
-}
-  } catch (error) {
-    console.error('Error:', error);
-    toast.error(error.messge)
-  }
+      e.preventDefault();
+      const response = await axios.post(backendUrl + "/api/user/admin", {
+        email,
+        password,
+      });
+      if (response.data.success) {
+        setToken(response.data.token);
+      } else {
+        toast.error(response.data.messge);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.messge);
+    }
   };
   return (
     <div className="w-full h-screen flex items-center justify-center">
@@ -62,7 +63,6 @@ else{
             />
           </div>
           <button
-            onClick={() => console.log("clicked")}
             type="submit"
             className="w-75 bg-black text-white p-2 rounded-[5px] text-[15px] cursor-pointer"
           >
