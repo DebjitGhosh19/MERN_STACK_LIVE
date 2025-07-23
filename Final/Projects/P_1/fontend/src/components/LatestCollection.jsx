@@ -10,7 +10,7 @@ const [letestProduct, setLetestProduct] = useState([]);
 useEffect(() => {
   setLetestProduct(products.slice(0,10))
 
-},[])
+},[products])
 
   
   return (
