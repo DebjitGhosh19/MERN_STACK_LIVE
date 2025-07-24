@@ -12,7 +12,7 @@ const [Search, setSearch] = useState('');
 const [ShowSearch, setShowSearch] = useState(false);
 const [CartItems, setCartItems] = useState({});
 const [products, setProducts] = useState([])
-
+const [token,setToken]=useState('');
 const navigate=useNavigate()
 const addToCart=async(itemId,size)=>{
   if (!size) {
@@ -91,7 +91,7 @@ useEffect(() => {
  const value={
     products,
     delevery_fee,
-    currency,Search,setSearch,ShowSearch,setShowSearch,addToCart,CartItems,getCartData,updateQuantity,getCartAmount,navigate,baclend_Url
+    currency,Search,setSearch,ShowSearch,setShowSearch,addToCart,CartItems,getCartData,updateQuantity,getCartAmount,navigate,baclend_Url,token,setToken,
   }
   return <ShopContext.Provider value={value}>
 {props.children}
