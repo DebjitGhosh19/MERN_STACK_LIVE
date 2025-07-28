@@ -14,6 +14,7 @@ const [CartItems, setCartItems] = useState({});
 const [products, setProducts] = useState([])
 const [token,setToken]=useState('');
 const navigate=useNavigate()
+
 const addToCart=async(itemId,size)=>{
   if (!size) {
     toast.error("Select Product Size");
@@ -30,7 +31,17 @@ const addToCart=async(itemId,size)=>{
     cartData[itemId]={};
     cartData[itemId][size]=1
   }
-  setCartItems(cartData)
+  setCartItems(cartData);
+ 
+    if (token) {
+   try {
+     await axios.post("http://localhost:3000"+'/api/cart/add',{itemId,size},{headers:{token}},{withCredentials:true})
+   } catch (error) {
+    
+    console.log(error.message);
+    toast(error.message)
+   }
+  }
 }
 const getCartData=()=>{
   let totalCount=0;
