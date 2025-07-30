@@ -9,7 +9,8 @@ const Cart = () => {
   const { products, currency, CartItems, updateQuantity,navigate } = useContext(ShopContext);
   const [CartData, setCartData] = useState([]);
   useEffect(() => {
-    const tempData = [];
+    if (products.length>0) {
+      const tempData = [];
     for (const items in CartItems) {
       for (const item in CartItems[items]) {
         if (CartItems[items][item] > 0) {
@@ -22,7 +23,8 @@ const Cart = () => {
       }
     }
     setCartData(tempData);
-  }, [CartItems]);
+    }
+  }, [CartItems,products]);
 
   return (
     <div className="border-t pt-14">
@@ -30,8 +32,7 @@ const Cart = () => {
         <Title text1={"YOUR"} text2={"CART"} />
       </div>
       <div >
-        {console.log(CartData)
-        }
+       
         {CartData.map((item, index) => {
           const productsData = products.find(
             (product) => product._id === item._id

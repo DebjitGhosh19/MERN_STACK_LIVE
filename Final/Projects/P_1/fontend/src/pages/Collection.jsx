@@ -58,7 +58,7 @@ const ShortFilter=()=>{
 }
 useEffect(() => {
    ApplyFilter()
-}, [Catagory,SubCatagory,Search,ShowSearch])
+}, [Catagory,SubCatagory,Search,ShowSearch,products])
 
 useEffect(() => {
 ShortFilter()

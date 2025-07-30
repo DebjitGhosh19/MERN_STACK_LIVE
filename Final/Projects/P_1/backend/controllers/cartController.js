@@ -13,7 +13,7 @@ export const addToCart = async (req, res) => {
         cartData[itemId][size] = 1;
       }
     } else {
-      cartData[itemId] = {};
+      cartData[itemId] = {}; 
       cartData[itemId][size] = 1;
     }
     await userModel.findByIdAndUpdate(userId, { cartData });
@@ -26,10 +26,12 @@ export const addToCart = async (req, res) => {
 //Update user cart
 export const updateCart = async (req, res) => {
  try {
-   const { userId, itemId, size, quntity } = req.body;
+   const { userId, itemId, size,  quantity } = req.body;
+   console.log(userId, itemId, size,  quantity);
+   
   const userData = await userModel.findById(userId);
   let cartData = await userData.cartData;
-  cartData[itemId][size] = quntity;
+  cartData[itemId][size] =  quantity;
   await userModel.findByIdAndUpdate(userId, { cartData });
   res.json({ success: true, message: "Cart Updated" });
 }
