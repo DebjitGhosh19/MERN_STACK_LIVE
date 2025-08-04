@@ -6,6 +6,5 @@ import ShopContextProvider from './context/ShowpContext.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <ShopContextProvider> <App /></ShopContextProvider>
-   
   </BrowserRouter>
 )
